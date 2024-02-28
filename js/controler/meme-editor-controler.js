@@ -34,18 +34,19 @@ function onChangeColor(color) {
 function onMoveToGallery() {
     document.querySelector('.gallery-container').style.display = 'block'
     document.querySelector('.editor-container').style.display = 'none'
+
 }
 
 function renderMeme() {
 
-    // const memeImg = getMemesImgs()
+   
     const memeImg = getCurrSelectImg()
-    const memeText = getMemesText()
+    const currMeme = getMemesText()
+    console.log(currMeme);
+    var selectedImgId = currMeme.selectedImgId
 
-    var selectedImgId = memeText.selectedImgId
-
-    var selectedLineIdx = memeText.selectedLineIdx
-    var selectedLine = memeText.lines[selectedLineIdx]
+    var selectedLineIdx = currMeme.selectedLineIdx
+    var selectedLine = currMeme.lines[selectedLineIdx]
 
 
     // const selectedImg = memeImg.find(img => img.id === selectedImgId)
