@@ -31,3 +31,9 @@ function getMemesText() {
 }
 
 
+function setLineTxt(text) {
+    console.log(text);
+    console.log(gMeme.lines[0].txt);
+    gMeme.lines[gMeme.selectedLineIdx].txt = text
+    console.log(gMeme.lines[0].txt);
+}

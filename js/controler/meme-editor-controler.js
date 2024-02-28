@@ -8,9 +8,18 @@ function onInit() {
 
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
-    renderMeme()
 
+    renderMeme()
 }
+
+
+function onSetLineTxt(text) {
+    console.log(text);
+    setLineTxt(text)
+
+    renderMeme()
+}
+
 
 
 function renderMeme() {
