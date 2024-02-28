@@ -49,12 +49,13 @@ function renderMeme() {
     var selectedLineIdx = currMeme.selectedLineIdx
     var selectedLine = currMeme.lines[selectedLineIdx]
 
-    drawImg(memeImg, selectedLine)
+    drawImg(memeImg, currMeme)
     // var { id, url, keywords } = memeImg
 }
 
-function onAddLine(){
+function onAddLine() {
     createNewLine()
+    renderMeme()
 }
 
 function onChangeSizeUp() {
@@ -71,13 +72,23 @@ function onChangeSizeDown() {
     renderMeme()
 }
 
-function renderText(selectedLine) {
-console.log(selectedLine);
+function renderText(currMeme) {
+    var selectedLineIdx = currMeme.selectedLineIdx
+    var selectedLine = currMeme.lines[selectedLineIdx]
 
-    gCtx.fillStyle = selectedLine.color
-    gCtx.font = selectedLine.size + 'px Arial'
-    gCtx.textAlign = 'center'
-    gCtx.fillText(selectedLine.txt, gElCanvas.width / 2, gElCanvas.height / 2)
+    console.log(selectedLine);
+    console.log(currMeme);
+    var spaces = 0
+    currMeme.lines.forEach(line => {
+        gCtx.fillStyle = line.color
+        gCtx.font = line.size + 'px Arial'
+        gCtx.textAlign = 'center'
+        gCtx.fillText(line.txt, (gElCanvas.width / 2), (gElCanvas.height / 2) + spaces)
+
+        spaces += 50
+    })
+
+
 }
 
 function drawImg(selectedImg, selectedLine) {
