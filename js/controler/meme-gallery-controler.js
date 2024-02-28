@@ -25,5 +25,8 @@ function renderGallery() {
 
 function onImgSelect(elImg) {
     setImg(elImg.alt)
+    document.querySelector('.gallery-container').style.display = 'none'
+    document.querySelector('.editor-container').style.display = 'block'
+
     renderMeme()
 }

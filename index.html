@@ -8,13 +8,18 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 
-<body onload="onInit()">
-
+<body onload="onInit()" class="main-container">
+    <header class="main-header">
+        <h1 class="logo">meme-generator</h1>
+        <nav class="main-nav-bar">
+            <ul>
+                <li><button class="header-btns gallery-btn" onclick="onMoveToGallery()">Gallery</button></li>
+                <li><button class="header-btns about-btn" onclick="onMoveToAbout()">About</button></li>
+            </ul>
+        </nav>
+    </header>
     <section class="gallery-container">
-        <header class="main-header">
-            <h1 class="logo">meme-generator</h1>
 
-        </header>
         <section class="imgs-container"></section>
 
     </section>
@@ -31,7 +36,9 @@
             <canvas width="500" height="500"></canvas>
         </div>
         <section class="editor-btns">
-            <input class="txt-input" type="text" oninput="onSetLineTxt(this.value)">
+            <input class="txt-input" type="text" oninput="onSetLineTxt(this.value)" placeholder="Enter text..">
+            <label for="color">Color</label>
+            <input class="font-color" type="color" onclick="onChangeColor" id="color">
             <button class="font-up">A+</button>
             <button class="font-down">A-</button>
             <a href="#" class="btn" onclick="downloadImg(this)" download="my-img.jpg">Download</a>
