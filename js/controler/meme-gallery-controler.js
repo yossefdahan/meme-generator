@@ -24,7 +24,6 @@ function renderGallery() {
 
 
 function onImgSelect(elImg, imgUrl) {
-    console.log(imgUrl);
 
 
     setImg(elImg, imgUrl)

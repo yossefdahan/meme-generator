@@ -58,15 +58,11 @@ function getMemesImgs() {
 }
 
 function getMemesText() {
-
-    console.log(gCurrSelectedImg);
     // const meme = gMeme.find(meme => meme.selectedImgId === gCurrSelectedImg.id)
     if (gCurrSelectedImg.id === gMeme.selectedImgId) {
         return gMeme
     }
-    console.log(gMeme);
-
-
+    return
 }
 
 function getCurrSelectImg() {
@@ -85,13 +81,23 @@ function setImg(elImg, imgUrl) {
     gCurrSelectedImg = selectedImg
 
     gMeme.lines[gMeme.selectedLineIdx].txt = 'I sometimes eat Falafel'
-    document.querySelector('.txt-input').value = ''
+    // document.querySelector('.txt-input').value = ''
+}
+
+function createNewLine() {
+    var newLine =
+        {
+            txt: 'more....',
+            size: 20,
+            color: '',
+        }
+
+    gMeme.lines.push(newLine)
+    console.log(gMeme);
 }
 
 function setFontColor(color) {
     gMeme.lines[gMeme.selectedLineIdx].color = color
-
-
 }
 
 function changeSizeUp(newSize) {

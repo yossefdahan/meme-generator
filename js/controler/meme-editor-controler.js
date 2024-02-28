@@ -38,24 +38,23 @@ function onMoveToGallery() {
 }
 
 function renderMeme() {
-
-   
     const memeImg = getCurrSelectImg()
     const currMeme = getMemesText()
-    console.log(currMeme);
+
+
+
+
     var selectedImgId = currMeme.selectedImgId
 
     var selectedLineIdx = currMeme.selectedLineIdx
     var selectedLine = currMeme.lines[selectedLineIdx]
 
-
-   
-
-    var { id, url, keywords } = memeImg
-
     drawImg(memeImg, selectedLine)
-   
+    // var { id, url, keywords } = memeImg
+}
 
+function onAddLine(){
+    createNewLine()
 }
 
 function onChangeSizeUp() {
@@ -73,6 +72,8 @@ function onChangeSizeDown() {
 }
 
 function renderText(selectedLine) {
+console.log(selectedLine);
+
     gCtx.fillStyle = selectedLine.color
     gCtx.font = selectedLine.size + 'px Arial'
     gCtx.textAlign = 'center'
