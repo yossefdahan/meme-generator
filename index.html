@@ -10,9 +10,12 @@
 
 <body onload="onInit()">
 
-    <section class="gallery">
+    <section class="gallery-container">
+        <header class="main-header">
+            <h1 class="logo">meme-generator</h1>
 
-
+        </header>
+        <section class="imgs-container"></section>
 
     </section>
 
@@ -22,12 +25,11 @@
 
 
 
-    <section class="editor">
+    <section class="editor-container">
 
-        <section class="canvas-container">
+        <div class="canvas-container">
             <canvas width="500" height="500"></canvas>
-        </section>
-
+        </div>
         <section class="editor-btns">
             <input class="txt-input" type="text" oninput="onSetLineTxt(this.value)">
             <button class="font-up">A+</button>

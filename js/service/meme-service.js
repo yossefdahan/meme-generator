@@ -1,10 +1,20 @@
 'use strict'
 
+let gCurrSelectedImg
+
+
 var gImgs = [{
     id: 1,
     url: 'img/1.jpg',
     keywords: ['funny', 'cat']
-}]
+},
+{
+    id: 2,
+    url: 'img/2.jpg',
+    keywords: ['funny', 'cat']
+}
+
+]
 
 var gMeme = {
     selectedImgId: 1,
@@ -30,10 +40,20 @@ function getMemesText() {
     return gMeme
 }
 
+function getCurrSelectImg() {
+    return gCurrSelectedImg
+}
 
 function setLineTxt(text) {
-    console.log(text);
-    console.log(gMeme.lines[0].txt);
     gMeme.lines[gMeme.selectedLineIdx].txt = text
-    console.log(gMeme.lines[0].txt);
+
 }
+
+function setImg(elImgAlt) {
+    var selectedImg = gImgs.find(img => img.id === +elImgAlt)
+    gCurrSelectedImg = selectedImg
+
+    gMeme.lines[gMeme.selectedLineIdx].txt = 'I sometimes eat Falafel'
+    document.querySelector('.txt-input').value = ''
+}
+
