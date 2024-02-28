@@ -49,12 +49,12 @@ function renderMeme() {
     var selectedLine = currMeme.lines[selectedLineIdx]
 
 
-    // const selectedImg = memeImg.find(img => img.id === selectedImgId)
+   
 
     var { id, url, keywords } = memeImg
 
     drawImg(memeImg, selectedLine)
-    // renderText(selectedLine)
+   
 
 }
 

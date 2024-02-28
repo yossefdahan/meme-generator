@@ -12,11 +12,41 @@ var gImgs = [{
     id: 2,
     url: 'img/2.jpg',
     keywords: ['funny', 'cat']
+},
+{
+    id: 3,
+    url: 'img/3.jpg',
+    keywords: ['funny', 'cat']
+},
+{
+    id: 4,
+    url: 'img/4.jpg',
+    keywords: ['funny', 'cat']
+},
+{
+    id: 5,
+    url: 'img/5.jpg',
+    keywords: ['funny', 'cat']
+},
+{
+    id: 6,
+    url: 'img/6.jpg',
+    keywords: ['funny', 'cat']
 }
 
 ]
 
-var gMeme
+var gMeme = {
+    selectedImgId: 0,
+    selectedLineIdx: 0,
+    lines: [{
+
+        txt: 'I sometimes eat Falafel',
+        size: 20,
+        color: '',
+    }]
+}
+
 
 var gKeywordSearchCountMap = {
     'funny': 12, 'cat': 16, 'baby': 2
@@ -48,23 +78,9 @@ function setLineTxt(text) {
 
 }
 
-function updateMeme(elImgId) {
-    gMeme = {
-        selectedImgId: +elImgId,
-        selectedLineIdx: 0,
-        lines: [{
-
-            txt: 'I sometimes eat Falafel',
-            size: 20,
-            color: '',
-        }]
-    }
-
-}
-
 function setImg(elImg, imgUrl) {
-    updateMeme(elImg.id)
 
+    gMeme.selectedImgId = +elImg.id
     var selectedImg = gImgs.find(img => img.url === imgUrl)
     gCurrSelectedImg = selectedImg
 
