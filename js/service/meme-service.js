@@ -40,10 +40,17 @@ var gMeme = {
     selectedImgId: 0,
     selectedLineIdx: 0,
     lines: [{
-
         txt: 'I sometimes eat Falafel',
         size: 20,
         color: '',
+        pos: {
+            x: 50,
+            y: 100,
+        },
+        wordSize: {
+            width: 200,
+            height: 20,
+        }
     }]
 }
 
@@ -80,17 +87,17 @@ function setImg(elImg, imgUrl) {
     var selectedImg = gImgs.find(img => img.url === imgUrl)
     gCurrSelectedImg = selectedImg
 
-    gMeme.lines[gMeme.selectedLineIdx].txt = 'I sometimes eat Falafel'
-    document.querySelector('.txt-input').value = ''
+    gMeme.lines[gMeme.selectedLineIdx].txt = gMeme.lines[gMeme.selectedLineIdx].txt
+    // document.querySelector('.txt-input').value = ''
 }
 
 function createNewLine() {
     var newLine =
-        {
-            txt: 'more....',
-            size: 20,
-            color: '',
-        }
+    {
+        txt: 'more....',
+        size: 20,
+        color: '',
+    }
 
     gMeme.lines.push(newLine)
     console.log(gMeme);
@@ -100,6 +107,9 @@ function setFontColor(color) {
     gMeme.lines[gMeme.selectedLineIdx].color = color
 }
 
-function changeSizeUp(newSize) {
-    gMeme.lines[gMeme.selectedLineIdx].size = newSize
+function changeSizeUp() {
+    gMeme.lines[gMeme.selectedLineIdx].size += 1
+}
+function changeSizeDown() {
+    gMeme.lines[gMeme.selectedLineIdx].size -= 1
 }
