@@ -23,7 +23,7 @@ var gMeme = {
 
         txt: 'I sometimes eat Falafel',
         size: 20,
-        color: 'red',
+        color: '',
     }]
 }
 
@@ -57,3 +57,12 @@ function setImg(elImgAlt) {
     document.querySelector('.txt-input').value = ''
 }
 
+function setFontColor(color) {
+    gMeme.lines[gMeme.selectedLineIdx].color = color
+
+
+}
+
+function changeSizeUp(newSize) {
+    gMeme.lines[gMeme.selectedLineIdx].size = newSize
+}

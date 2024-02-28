@@ -25,6 +25,12 @@ function onSetLineTxt(text) {
     renderMeme()
 }
 
+function onChangeColor(color) {
+    console.log(color);
+    setFontColor(color)
+    renderMeme()
+}
+
 function onMoveToGallery() {
     document.querySelector('.gallery-container').style.display = 'block'
     document.querySelector('.editor-container').style.display = 'none'
@@ -51,9 +57,19 @@ function renderMeme() {
 
 }
 
+function onChangeSizeUp() {
+    var currSize = getMemesText()
+    var newSize = currSize.lines[gMeme.selectedLineIdx].size += 1
+    changeSizeUp(newSize)
+    renderMeme()
+}
 
-
-
+function onChangeSizeDown() {
+    var currSize = getMemesText()
+    var newSize = currSize.lines[gMeme.selectedLineIdx].size -= 1
+    changeSizeUp(newSize)
+    renderMeme()
+}
 
 function renderText(selectedLine) {
     gCtx.fillStyle = selectedLine.color

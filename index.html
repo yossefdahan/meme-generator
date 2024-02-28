@@ -38,9 +38,9 @@
         <section class="editor-btns">
             <input class="txt-input" type="text" oninput="onSetLineTxt(this.value)" placeholder="Enter text..">
             <label for="color">Color</label>
-            <input class="font-color" type="color" onclick="onChangeColor" id="color">
-            <button class="font-up">A+</button>
-            <button class="font-down">A-</button>
+            <input class="font-color" type="color" onchange="onChangeColor(this.value)" id="color">
+            <button class="font-up" onclick="onChangeSizeUp()">A+</button>
+            <button class="font-down" onclick="onChangeSizeDown()">A-</button>
             <a href="#" class="btn" onclick="downloadImg(this)" download="my-img.jpg">Download</a>
         </section>
 
