@@ -27,8 +27,11 @@ function renderMeme() {
     var { id, url, keywords } = selectedImg
 
     drawImg(selectedImg, selectedLine)
-    renderText(selectedLine)
+    // renderText(selectedLine)
 }
+
+
+
 
 
 function renderText(selectedLine) {
