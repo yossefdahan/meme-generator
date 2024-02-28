@@ -81,7 +81,7 @@ function setImg(elImg, imgUrl) {
     gCurrSelectedImg = selectedImg
 
     gMeme.lines[gMeme.selectedLineIdx].txt = 'I sometimes eat Falafel'
-    // document.querySelector('.txt-input').value = ''
+    document.querySelector('.txt-input').value = ''
 }
 
 function createNewLine() {

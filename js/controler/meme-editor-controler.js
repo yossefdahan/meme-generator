@@ -17,7 +17,6 @@ function onInit() {
     // window.addEventListener('resize', () => resizeCanvas())
 }
 
-
 function onSetLineTxt(text) {
 
     setLineTxt(text)
@@ -55,6 +54,24 @@ function renderMeme() {
 
 function onAddLine() {
     createNewLine()
+    onSwitchLine()
+    renderMeme()
+    // document.querySelector('.txt-input').value = memes.lines[memes.selectedLineIdx + 1].txt
+
+}
+
+function onSwitchLine() {
+    var memes = getMemesText()
+    var currLine = memes.selectedLineIdx++
+
+    document.querySelector('.txt-input').value = memes.lines[currLine].txt
+    if (memes.selectedLineIdx >= memes.lines.length) {
+
+        memes.selectedLineIdx = 0
+    }
+
+
+
     renderMeme()
 }
 
@@ -73,22 +90,32 @@ function onChangeSizeDown() {
 }
 
 function renderText(currMeme) {
+
+
     var selectedLineIdx = currMeme.selectedLineIdx
     var selectedLine = currMeme.lines[selectedLineIdx]
 
-    console.log(selectedLine);
-    console.log(currMeme);
-    var spaces = 0
-    currMeme.lines.forEach(line => {
+
+
+    currMeme.lines.forEach((line, idx) => {
         gCtx.fillStyle = line.color
         gCtx.font = line.size + 'px Arial'
         gCtx.textAlign = 'center'
-        gCtx.fillText(line.txt, (gElCanvas.width / 2), (gElCanvas.height / 2) + spaces)
+        gCtx.fillText(line.txt, (gElCanvas.width / 2), (gElCanvas.height / 2) + (idx * 50))
 
-        spaces += 50
+        if (idx === currMeme.selectedLineIdx) {
+            const textWidth = gCtx.measureText(line.txt+20).width
+            const textHeight = line.size+30
+            const textX = gElCanvas.width / 2 - textWidth / 2
+            const textY = (gElCanvas.height / 2) + (idx * 50) - textHeight / 2
+
+            gCtx.strokeStyle = 'black'
+            gCtx.lineWidth = 2
+            gCtx.strokeRect(textX, textY, textWidth, textHeight)
+        }
+
     })
-
-
+    renderMeme()
 }
 
 function drawImg(selectedImg, selectedLine) {
