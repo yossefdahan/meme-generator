@@ -241,7 +241,7 @@ function onDown(ev) {
             renderText(currMeme)
             document.querySelector('.txt-input').value = currMeme.lines[currMeme.selectedLineIdx].txt
             console.log('hello');
-
+            renderMeme()
             return
         }
     })
