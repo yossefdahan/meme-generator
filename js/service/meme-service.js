@@ -106,6 +106,7 @@ var gMeme = {
         stroke: 'black',
         isDrag: false,
         font: 'Impact',
+        align: 'center',
         pos: {
             x: 250,
             y: 250,
@@ -166,6 +167,7 @@ function createNewLine(center) {
         color: 'white',
         font: 'Impact',
         stroke: 'black',
+        align: 'center',
         isDrag: false,
         pos: {
             x: x,
@@ -204,10 +206,30 @@ function getNewLinePos(x, y, width, height) {
     console.log(x, y, width, height);
 }
 
+function removeLine(currLine) {
+    console.log(currLine);
+
+
+    if (gMeme.lines.length === 0) {
+        gMeme.lines.selectedLineIdx = 0
+    } else {
+        gMeme.lines.selectedLineIdx = Math.max(0, gMeme.lines.selectedLineIdx - 1)
+    }
+    gMeme.lines.splice(gMeme.lines[currLine], 1)
+
+}
+
+function setFontFamily(value) {
+    gMeme.lines[gMeme.selectedLineIdx].font = value
+}
+
+function updateAlignToCenter(align) {
+    gMeme.lines[gMeme.selectedLineIdx].align = align
+}
+
 function isLineClicked({ x, y }) {
     const { pos, wordSize } = gMeme.lines[gMeme.selectedLineIdx]
 
-    console.log(pos, wordSize);
 
     return x >= pos.x && x <= pos.x + wordSize.width &&
         y >= pos.y && y <= pos.y + wordSize.height
@@ -223,6 +245,20 @@ function setLineDrag(isDrag) {
 function moveLine(dx, dy) {
     const line = gMeme.lines[gMeme.selectedLineIdx]
     const { pos, size, isDrag } = line
+    const clickX = ev.offsetX
+    const clickY = ev.offsetY
+
+    const textWidth = gCtx.measureText(line.txt).width
+    const textHeight = line.size
+    const textX = line.pos.x - textWidth / 2
+
+    const textY = line.pos.y + (currMeme.selectedLineIdx * 50) - textHeight / 2
+    return (
+        clickX >= textX &&
+        clickX <= textX + textWidth &&
+        clickY >= textY &&
+        clickY <= textY + textHeight
+    )
 
     pos.x += dx
     pos.y += d
@@ -240,4 +276,33 @@ function moveLine(dx, dy) {
         pos.y = gElCanvas.height - size
     }
     renderText(getMemesText())
+}
+
+function selectLineOnClick(ev) {
+
+    const currMeme = getMemesText()
+    const clickX = ev.offsetX
+    const clickY = ev.offsetY
+    gStartPos = getEvPos(ev)
+    currMeme.lines.forEach((line, idx) => {
+
+        const textWidth = gCtx.measureText(line.txt).width
+        const textHeight = line.size
+        const textX = line.pos.x - textWidth / 2
+        const textY = line.pos.y + (idx * 50) - textHeight / 2
+
+        if (
+            clickX >= textX &&
+            clickX <= textX + textWidth &&
+            clickY >= textY &&
+            clickY <= textY + textHeight
+        ) {
+            currMeme.selectedLineIdx = idx
+            renderText(currMeme)
+            document.querySelector('.txt-input').value = currMeme.lines[currMeme.selectedLineIdx].txt
+
+            renderMeme()
+            return
+        }
+    })
 }

@@ -99,9 +99,8 @@ function renderText(currMeme) {
         gCtx.strokeStyle = `${line.stroke}`
         gCtx.fillStyle = `${line.color}`
         gCtx.font = `${line.size}px ${line.font}`
-        gCtx.textAlign = 'center'
+        gCtx.textAlign = `${line.align}`
         gCtx.textBaseline = 'middle'
-
         gCtx.strokeText(line.txt, line.pos.x, line.pos.y + (idx * 50))
         gCtx.fillText(line.txt, line.pos.x, line.pos.y + (idx * 50))
         gCtx.closePath()
@@ -143,7 +142,39 @@ function drawRect(line, width, space) {
     gCtx.strokeRect(rectX, rectY, rectWidth, rectHeight)
 }
 
+function onRemoveLine() {
+    var currMeme = getMemesText()
+    if (currMeme.lines.length === 0) return
+    removeLine(currMeme)
+    
 
+
+    renderMeme()
+}
+
+function onSetFontFamily(value) {
+
+    setFontFamily(value)
+    renderMeme()
+}
+
+function onSetAlignCenter() {
+    const align = 'center'
+    updateAlignToCenter(align)
+    renderMeme()
+}
+
+function onSetAlignLeft() {
+    const align = 'left'
+    updateAlignToCenter(align)
+    renderMeme()
+}
+
+function onSetAlignRight() {
+    const align = 'right'
+    updateAlignToCenter(align)
+    renderMeme()
+}
 
 function drawImg(selectedImg, selectedLine) {
     const img = new Image()
@@ -220,31 +251,10 @@ function downloadImg(elLink) {
 }
 
 function onDown(ev) {
-    const currMeme = getMemesText()
-    const clickX = ev.offsetX
-    const clickY = ev.offsetY
+
     gStartPos = getEvPos(ev)
-    currMeme.lines.forEach((line, idx) => {
 
-        const textWidth = gCtx.measureText(line.txt).width
-        const textHeight = line.size
-        const textX = line.pos.x - textWidth / 2
-        const textY = line.pos.y + (idx * 50) - textHeight / 2
-
-        if (
-            clickX >= textX &&
-            clickX <= textX + textWidth &&
-            clickY >= textY &&
-            clickY <= textY + textHeight
-        ) {
-            currMeme.selectedLineIdx = idx
-            renderText(currMeme)
-            document.querySelector('.txt-input').value = currMeme.lines[currMeme.selectedLineIdx].txt
-            console.log('hello');
-            renderMeme()
-            return
-        }
-    })
+    selectLineOnClick(ev)
     if (!isLineClicked(ev)) return
     // onSwitchLine()
     setLineDrag(true)

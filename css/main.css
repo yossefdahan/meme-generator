@@ -71,7 +71,7 @@ body {
 ul {
     list-style: none;
     display: flex;
-
+    gap: 20px;
 
 }
 
@@ -80,7 +80,7 @@ ul {
     background-color: lightblue;
     font-size: 1.5em;
     /* margin-left: 8rem;*/
-    margin-right: 3rem;
+    /* margin-right: 3em; */
     justify-content: space-evenly;
     color: white;
     transition: background-color 300ms;
@@ -100,75 +100,47 @@ ul {
 }
 
 .canvas-container {
-    display: grid;
-    width: 50vw;
-    height: fit-content;
-    grid-row: 1/-1;
-    justify-items: center;
-    align-items: center;
+
+    grid-column: 2;
     border-radius: 15px;
-    
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 canvas {
     border: 1px solid black;
     border-radius: 15px;
-    /* width: 100%; */
+    width: 100%;
 }
 
 
-.editor-container {
-    /* display: none; */
-    /* display: grid; */
 
-
-
-    /* grid-area:
-        "c t . ."
-        "c s p r"
-        "c aa a- ."
-        "c font-color . ."
-        "c download . ."
-
-    ; */
-    /* align-items: center;
-    justify-items: center; */
-}
 
 .btns-canvas-container {
     display: grid;
 
     width: 100%;
     margin-top: 3rem;
-    
-    height: fit-content;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(4, 1fr);
 
-    /* grid-template-areas:
-        "c t t t"
-        "c s p r"
-        "c . a- aa"
-        "c font-color . ."
-        "c download . ."
-
-    ; */
+    /* height: fit-content; */
+    grid-template-columns: minmax(10px, 1fr) minmax(200px, 3fr)minmax(10px, 1fr)minmax(200px, 3fr)minmax(10px, 1fr);
 
     align-items: center;
     justify-items: center;
 }
 
 .editor-btns {
-    grid-row: 1/-1;
-    grid-column: 2;
+    /* grid-row: ; */
+    grid-column: 4;
     display: grid;
     grid-template-rows: repeat(6, 1fr);
     grid-template-columns: repeat(5, 1fr);
- 
+
     gap: 1em;
     /* font-size: 1.2em; */
     text-align: center;
-    background-color:#d3d3d336;
+    background-color: #d3d3d336;
     border-radius: 15px;
 
 }
@@ -217,6 +189,7 @@ canvas {
     background-color: white;
     margin: auto;
     height: 4em;
+
 }
 
 .download-btn {
@@ -238,4 +211,181 @@ canvas {
     padding: 1em;
     font-size: 1em;
 
+}
+
+.font-center {
+    grid-column: 4;
+    grid-row: 3;
+    height: 4em;
+    border-radius: 15px;
+}
+
+.font-right {
+    grid-column: 5;
+    grid-row: 3;
+    height: 4em;
+    border-radius: 15px;
+}
+
+.font-left {
+    grid-column: 3;
+    grid-row: 3;
+
+
+    height: 4em;
+    border-radius: 15px;
+}
+
+.trash-line {
+    grid-column: 4;
+    grid-row: 2;
+    border-radius: 15px;
+    height: 4em;
+}
+
+.font-choose {
+    grid-column: 1/4;
+    grid-row: 4/5;
+    text-align: center;
+    font-size: 1em;
+    height: 3em;
+}
+
+@media (width<=900px) {
+
+    .btns-canvas-container {
+
+        display: flex;
+        flex-direction: column;
+
+    }
+
+    .editor-btns {
+
+        grid-column: 4;
+        display: grid;
+        grid-template-rows: repeat(6, 1fr);
+        grid-template-columns: repeat(5, 1fr);
+
+        gap: 1em;
+
+        text-align: center;
+        background-color: #d3d3d336;
+        border-radius: 15px;
+
+    }
+
+    .font-down {
+        grid-column: 2;
+        grid-row: 3;
+        background-color: white;
+        border: 1px solid black;
+        border-radius: 15px;
+
+    }
+
+    .switch-line {
+        grid-column: 2;
+        grid-row: 2;
+        font-size: 1em;
+        margin: 0;
+        padding: 0;
+        border-radius: 15px;
+        background: lightskyblue;
+
+    }
+
+    .add-line {
+        grid-column: 3;
+        grid-row: 2;
+        background-color: green;
+        color: white;
+        border-radius: 15px;
+    }
+
+    .font-up {
+        grid-column: 1;
+        grid-row: 3;
+        background-color: white;
+        border: 1px solid black;
+        border-radius: 15px;
+
+    }
+
+    .font-color {
+        grid-column: 4;
+        grid-row: 4;
+        border-radius: 15px;
+        background-color: white;
+        margin: auto;
+        height: 4em;
+
+    }
+
+    .download-btn {
+        grid-column: 3/-1;
+        grid-row: 6;
+        text-decoration: none;
+        color: white;
+        background-color: blueviolet;
+        border-radius: 15px;
+        padding: 0.8em;
+    }
+
+    .txt-input {
+        grid-column: 1/ -1;
+        grid-row: 1;
+        border-radius: 50px;
+        text-align: center;
+        justify-content: center;
+        padding: 1em;
+        font-size: 1em;
+
+    }
+
+    .font-center {
+        grid-column: 4;
+        grid-row: 3;
+        height: 4em;
+        border-radius: 15px;
+    }
+
+    .font-right {
+        grid-column: 5;
+        grid-row: 3;
+        height: 4em;
+        border-radius: 15px;
+    }
+
+    .font-left {
+        grid-column: 3;
+        grid-row: 3;
+
+
+        height: 4em;
+        border-radius: 15px;
+    }
+
+    .trash-line {
+        grid-column: 4;
+        grid-row: 2;
+        border-radius: 15px;
+        height: 4em;
+    }
+
+    .font-family {
+        grid-column: 1/4;
+        grid-row: 4;
+        text-align: center;
+        font-size: 1em;
+        height: 3em;
+    }
+
+
+
+
+    .canvas-container {
+        height: 300px;
+        width: 300px;
+    }
 }

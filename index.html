@@ -32,20 +32,38 @@
 
     <section class="editor-container hidden">
         <div class="btns-canvas-container">
-            <section class="canvas-container">
-                <canvas class="canvas" width="500" height="500"></canvas>
-            </section>
+
+            <div class="canvas-container">
+                <canvas class="canvas" width="600" height="600"></canvas>
+            </div>
+
+
             <section class="editor-btns">
                 <input class="txt-input" type="text" oninput="onSetLineTxt(this.value)" placeholder="Enter text..">
-                
+                <button class="font-center" onclick="onSetAlignCenter()"><img src="img/center.png" width=40
+                        alt=""></button>
+                <button class="font-right" onclick="onSetAlignRight()"><img src="img/right1.png" width=40
+                        alt=""></button>
+                <button class="font-left" onclick="onSetAlignLeft()"><img src="img/left1.png" width=40 alt=""></button>
+                <button class="trash-line" onclick="onRemoveLine()"><img src="/img/trash.png" width=40 alt=""></button>
                 <input class="font-color" type="color" onchange="onChangeColor(this.value)" id="color">
                 <button class="font-up" onclick="onChangeSizeUp()">A+</button>
+                <button class="font-down" onclick="onChangeSizeDown()">A-</button>
                 <button class="add-line" onclick="onAddLine()">➕</button>
                 <button class="switch-line" onclick="onSwitchLine()">S</button>
-                <button class="font-down" onclick="onChangeSizeDown()">A-</button>
                 <a href="#" class="download-btn" onclick="downloadImg(this)" download="my-img.jpg">Download</a>
+                <button class="down-arrow" onclick="onSetLinePosDown()">🔽</button>
+                <button class="up-arrow" onclick="onSetLinePosUp()">🔽</button>
+                <select class="font-choose" onchange="onSetFontFamily(this.value)">
+                    <option value="Arial">Arial</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                    <option value="Verdana">Verdana</option>
+                </select>
             </section>
-        </div>
+    </section>
+
+    </section>
+    </div>
     </section>
 
 
