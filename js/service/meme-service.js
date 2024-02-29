@@ -103,7 +103,7 @@ var gMeme = {
         txt: 'I sometimes eat Falafel',
         size: 20,
         color: '#ffffff',
-        stroke:'black',
+        stroke: 'black',
         isDrag: false,
         font: 'Impact',
         pos: {
@@ -165,7 +165,7 @@ function createNewLine(center) {
         size: 20,
         color: 'white',
         font: 'Impact',
-        stroke:'black',
+        stroke: 'black',
         isDrag: false,
         pos: {
             x: x,
@@ -225,49 +225,19 @@ function moveLine(dx, dy) {
     const { pos, size, isDrag } = line
 
     pos.x += dx
-    pos.y += dy
+    pos.y += d
 
+    console.log(gElCanvas.width, gElCanvas.height)
 
-
-    // const textWidth = gCtx.measureText(line.txt).width
-    // const textHeight = line.size
-    // const topX = gElCanvas.width - textWidth
-    // const topY = gElCanvas.height - textHeight
-
-    // if (pos.x < 0) pos.x = 0
-    // if (pos.x > topX) pos.x = topX
-    // if (pos.y < textHeight) pos.y = textHeight
-    // if (pos.y > topY) pos.y = topY
-
-
-
-    console.log(gElCanvas.width, gElCanvas.height);
-    // gMeme.lines[gMeme.selectedLineIdx] = line
     if (pos.x < 0) pos.x = 0
     if (pos.y < 0) pos.y = 0
-    if (pos.x > gElCanvas.width - (Math.sqrt(size))) pos.x = gElCanvas.width - (Math.sqrt(size))
-    if (pos.y > gElCanvas.height - (Math.sqrt(size))) pos.y = gElCanvas.height - (Math.sqrt(size))
+    if (pos.x + gCtx.measureText(line.txt).width > gElCanvas.width) {
+        pos.x = gElCanvas.width - gCtx.measureText(line.txt).width
 
-    // Check if the line is out of bounds and reset its position
-    if (Math.abs(pos.y) > gElCanvas.height - (Math.sqrt(size)) ||
-        Math.abs(pos.x) > gElCanvas.width - (Math.sqrt(size))) {
-        pos.x = gElCanvas.width / 2
-        pos.y = gElCanvas.height / 2
-        gMeme.lines[gMeme.selectedLineIdx].isDrag = false
     }
+    if (pos.y + size > gElCanvas.height) {
 
-    console.log(pos.x, pos.y)
-    // if (pos.y > gElCanvas.height - (Math.sqrt(size)) ||
-    //     pos.x > gElCanvas.width - (Math.sqrt(size)) ||
-    //     pos.y < (Math.sqrt(size)) ||
-    //     pos.x < (Math.sqrt(size))) {
-    //     pos.x = gElCanvas.width / 2
-    //     pos.y = gElCanvas.height / 2
-    //     // gCircle.pos.y = 100
-    //     // moveCircle(100, 100)
-
-    //     gMeme.lines[gMeme.selectedLineIdx].isDrag = false
-    // }
-
-
+        pos.y = gElCanvas.height - size
+    }
+    renderText(getMemesText())
 }

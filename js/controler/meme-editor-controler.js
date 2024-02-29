@@ -220,16 +220,39 @@ function downloadImg(elLink) {
 }
 
 function onDown(ev) {
-    console.log(ev.offsetX, ev.offsetY);
+    const currMeme = getMemesText()
+    const clickX = ev.offsetX
+    const clickY = ev.offsetY
     gStartPos = getEvPos(ev)
+    currMeme.lines.forEach((line, idx) => {
 
+        const textWidth = gCtx.measureText(line.txt).width
+        const textHeight = line.size
+        const textX = line.pos.x - textWidth / 2
+        const textY = line.pos.y + (idx * 50) - textHeight / 2
 
+        if (
+            clickX >= textX &&
+            clickX <= textX + textWidth &&
+            clickY >= textY &&
+            clickY <= textY + textHeight
+        ) {
+            currMeme.selectedLineIdx = idx
+            renderText(currMeme)
+            document.querySelector('.txt-input').value = currMeme.lines[currMeme.selectedLineIdx].txt
+            console.log('hello');
+
+            return
+        }
+    })
     if (!isLineClicked(ev)) return
-    console.log('hi');
-    onSwitchLine()
+    // onSwitchLine()
     setLineDrag(true)
-
     document.body.style.cursor = 'grabbing'
+    console.log('hi');
+
+
+
 }
 
 function onMove(ev) {
