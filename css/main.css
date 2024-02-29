@@ -1,10 +1,24 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-size: 16px;
     text-align: center;
 }
 
+.hidden {
+    display: none;
+}
+
+.show {
+    display: grid;
+}
+
 img {
     /* width: 100%; */
+    margin: 1em;
+    width: 20vh;
 }
 
 .gallery-container {
@@ -23,9 +37,8 @@ img {
 
 .imgs-container {
     /* display: grid; */
-    grid-template-columns: 1fr 1fr;
-    gap: 20em;
-
+    /* grid-template-columns: 1fr 1fr; */
+    /* gap: 20em; */
 }
 
 .main-header {
@@ -52,20 +65,102 @@ ul {
 
 }
 
-.gallery-btn {
-    
-}
+.gallery-btn {}
 
 .main-nav-bar {
     grid-area: nav;
-display: flex;
+    display: flex;
 
+}
+
+.canvas-container {
+
+    width: 40vw;
+    height: 50vh;
+    grid-row: 1/-1;
+    margin: 10em;
 }
 
 canvas {
-    border: 2px solid black;
+    border: 1px solid black;
 }
 
+
 .editor-container {
-    display: none;
+    /* display: none; */
+    /* display: grid; */
+
+
+
+    /* grid-area:
+        "c t . ."
+        "c s p r"
+        "c aa a- ."
+        "c font-color . ."
+        "c download . ."
+
+    ; */
+    /* align-items: center;
+    justify-items: center; */
 }
+
+.btns-canvas-container {
+    display: grid;
+    margin: 5em;
+    height: 50vh;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    /* grid-template-areas:
+        "c t t t"
+        "c s p r"
+        "c . a- aa"
+        "c font-color . ."
+        "c download . ."
+
+    ; */
+
+    align-items: center;
+    justify-items: center;
+}
+
+/* .editor-btns {
+    display: flex;
+    flex-direction: column;
+    width: 3em;
+    align-items: center;
+   
+
+} */
+
+/* .font-down {
+    grid-row: 1;
+}
+
+.switch-line {
+    grid-row: 2;
+}
+
+.add-line {
+    grid-area: p;
+
+}
+
+.font-up {
+    grid-area: aa;
+
+}
+
+.font-color {
+    grid-area: font-color;
+
+}
+
+.download-btn {
+    grid-area: download;
+
+}
+
+.txt-input {
+    grid-area: t;
+
+} */

@@ -31,7 +31,7 @@ function onImgSelect(elImg, imgUrl) {
 
 
     document.querySelector('.gallery-container').style.display = 'none'
-    document.querySelector('.editor-container').style.display = 'block'
+    document.querySelector('.editor-container').classList.remove('hidden')
 
     renderMeme()
 }
