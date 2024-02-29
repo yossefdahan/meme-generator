@@ -21,20 +21,7 @@ function onInit() {
 
 }
 
-function onSetLineTxt(text) {
-    setLineTxt(text)
-    renderMeme()
-}
 
-function onChangeColor(color) {
-    setFontColor(color)
-    renderMeme()
-}
-
-function onMoveToGallery() {
-    document.querySelector('.gallery-container').style.display = 'block'
-    document.querySelector('.editor-container').classList.add('hidden')
-}
 
 function renderMeme() {
     const memeImg = getCurrSelectImg()
@@ -43,41 +30,7 @@ function renderMeme() {
     drawImg(memeImg, currMeme)
 }
 
-function onAddLine() {
-    const center = { x: gElCanvas.width / 2, y: gElCanvas.height / 2 }
-    createNewLine(center)
-    onSwitchLine()
-    renderMeme()
-    setFontColor('white')
-    document.querySelector('.font-color').value = "#000000"
 
-}
-
-function onSwitchLine() {
-    var memes = getMemesText()
-    var currLine = memes.selectedLineIdx++
-    document.querySelector('.txt-input').value = memes.lines[currLine].txt
-    if (memes.selectedLineIdx >= memes.lines.length) {
-
-        // console.log(memes.selectedLineIdx);
-        document.querySelector('.font-color').value = memes.lines[currLine].color
-
-        memes.selectedLineIdx = 0
-    }
-
-
-    renderMeme()
-}
-
-function onChangeSizeUp() {
-    changeSizeUp()
-    renderMeme()
-}
-
-function onChangeSizeDown() {
-    changeSizeDown()
-    renderMeme()
-}
 
 function renderText(currMeme) {
 
@@ -128,7 +81,6 @@ function renderText(currMeme) {
     // getNewLinePos(textX, textY, textWidth, textHeight)
 }
 
-
 function drawRect(line, width, space) {
     const paddingX = 5
     const paddingY = 10
@@ -146,11 +98,82 @@ function onRemoveLine() {
     var currMeme = getMemesText()
     if (currMeme.lines.length === 0) return
     removeLine(currMeme)
-    
+
 
 
     renderMeme()
 }
+
+function onAddLine() {
+    const center = { x: gElCanvas.width / 2, y: gElCanvas.height / 2 }
+    createNewLine(center)
+    onSwitchLine()
+    renderMeme()
+    setFontColor('white')
+    document.querySelector('.font-color').value = "#000000"
+
+}
+
+function onSwitchLine() {
+    var memes = getMemesText()
+    var currLine = memes.selectedLineIdx++
+    document.querySelector('.txt-input').value = memes.lines[currLine].txt
+    if (memes.selectedLineIdx >= memes.lines.length) {
+
+        // console.log(memes.selectedLineIdx);
+        document.querySelector('.font-color').value = memes.lines[currLine].color
+
+        memes.selectedLineIdx = 0
+    }
+
+
+    renderMeme()
+}
+
+function onSetLineTxt(text) {
+    setLineTxt(text)
+    renderMeme()
+}
+
+function onChangeColor(color) {
+    setFontColor(color)
+    renderMeme()
+}
+
+function onMoveToGallery() {
+    document.querySelector('.gallery-container').style.display = 'block'
+    document.querySelector('.editor-container').classList.add('hidden')
+}
+
+function onChangeSizeUp() {
+    changeSizeUp()
+    renderMeme()
+}
+
+function onChangeSizeDown() {
+    changeSizeDown()
+    renderMeme()
+}
+
+function onSetLinePosDown() {
+    setLinePosDown()
+    renderMeme()
+}
+
+function onSetLinePosUp() {
+    setLinePosUp()
+    renderMeme()
+}
+
+function onSetLinePosRight() {
+    setLinePosRight()
+    renderMeme()
+}
+function onSetLinePosLeft() {
+    setLinePosLeft()
+    renderMeme()
+}
+
 
 function onSetFontFamily(value) {
 
@@ -183,13 +206,8 @@ function drawImg(selectedImg, selectedLine) {
         gElCanvas.height = (img.naturalHeight / img.naturalWidth) * gElCanvas.width
         gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
 
-
-
         renderText(selectedLine)
-
     }
-
-
 }
 
 function onClearCanvas() {

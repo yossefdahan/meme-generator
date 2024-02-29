@@ -118,11 +118,9 @@ var gMeme = {
     }]
 }
 
-
 var gKeywordSearchCountMap = {
     'funny': 12, 'cat': 16, 'baby': 2
 }
-
 
 function getMemesImgs() {
 
@@ -189,9 +187,25 @@ function setFontColor(color) {
 function changeSizeUp() {
     gMeme.lines[gMeme.selectedLineIdx].size += 1
 }
+
 function changeSizeDown() {
     gMeme.lines[gMeme.selectedLineIdx].size -= 1
 }
+
+function setLinePosDown() {
+    gMeme.lines[gMeme.selectedLineIdx].pos.y += 10
+}
+
+function setLinePosUp() {
+    gMeme.lines[gMeme.selectedLineIdx].pos.y -= 10
+}
+function setLinePosRight() {
+    gMeme.lines[gMeme.selectedLineIdx].pos.x += 10
+}
+function setLinePosLeft() {
+    gMeme.lines[gMeme.selectedLineIdx].pos.x -= 10
+}
+
 
 function updateTextPos(center) {
     gMeme.lines[gMeme.selectedLineIdx].pos.x = center.x
