@@ -12,23 +12,21 @@ function onInit() {
     onInitGallery()
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
+
     const center = { x: gElCanvas.width / 2, y: gElCanvas.height / 2 }
     updateTextPos(center)
 
     addListeners()
-
+    window.addEventListener('resize', resizeCanvas)
 
 }
 
 function onSetLineTxt(text) {
-
     setLineTxt(text)
-
     renderMeme()
 }
 
 function onChangeColor(color) {
-
     setFontColor(color)
     renderMeme()
 }
@@ -36,23 +34,13 @@ function onChangeColor(color) {
 function onMoveToGallery() {
     document.querySelector('.gallery-container').style.display = 'block'
     document.querySelector('.editor-container').classList.add('hidden')
-
 }
 
 function renderMeme() {
-
     const memeImg = getCurrSelectImg()
     const currMeme = getMemesText()
 
-
-
-    // var memePos = currMeme.lines[selectedLineIdx].pos
-    // var selectedImgId = currMeme.selectedImgId
-
-    // var selectedLineIdx = currMeme.selectedLineIdx
-    // var selectedLine = currMeme.lines[selectedLineIdx]
     drawImg(memeImg, currMeme)
-    // var { id, url, keywords } = memeImg
 }
 
 function onAddLine() {
@@ -60,7 +48,7 @@ function onAddLine() {
     createNewLine(center)
     onSwitchLine()
     renderMeme()
-    setFontColor('black')
+    setFontColor('white')
     document.querySelector('.font-color').value = "#000000"
 
 }
@@ -106,27 +94,33 @@ function renderText(currMeme) {
     let textY
     let curIdx
     currMeme.lines.forEach((line, idx) => {
-        gCtx.fillStyle = line.color
-        gCtx.font = `${line.size}px Arial`
+        gCtx.beginPath()
+        gCtx.lineWidth = 2
+        gCtx.strokeStyle = `${line.stroke}`
+        gCtx.fillStyle = `${line.color}`
+        gCtx.font = `${line.size}px ${line.font}`
         gCtx.textAlign = 'center'
-        // console.log(idx);
+        gCtx.textBaseline = 'middle'
 
-
+        gCtx.strokeText(line.txt, line.pos.x, line.pos.y + (idx * 50))
         gCtx.fillText(line.txt, line.pos.x, line.pos.y + (idx * 50))
+        gCtx.closePath()
 
         if (idx === currMeme.selectedLineIdx) {
-            textWidth = gCtx.measureText(line.txt).width
+            gCtx.beginPath()
 
+            textWidth = gCtx.measureText(line.txt).width
             textHeight = line.size + 20
 
             textX = line.pos.x - textWidth / 2
 
             textY = line.pos.y + (idx * 50) - textHeight / 2
-
+            console.log(line.pos.x, line.pos.y);
             gCtx.strokeStyle = 'black'
-            gCtx.lineWidth = 2
-            gCtx.strokeRect(textX, textY, textWidth, textHeight)
 
+            gCtx.lineWidth = 1
+            gCtx.strokeRect(textX, textY, textWidth, textHeight)
+            gCtx.closePath()
         }
     })
     // console.log();
@@ -134,6 +128,22 @@ function renderText(currMeme) {
 
     // getNewLinePos(textX, textY, textWidth, textHeight)
 }
+
+
+function drawRect(line, width, space) {
+    const paddingX = 5
+    const paddingY = 10
+    const rectX = line.pos.x - paddingX - width
+    const rectY = line.pos.y + space + paddingY
+    const rectWidth = width + paddingX
+    const rectHeight = space + paddingY
+    gCtx.beginPath()
+    gCtx.strokeStyle = 'black'
+    gCtx.lineWidth = 2
+    gCtx.strokeRect(rectX, rectY, rectWidth, rectHeight)
+}
+
+
 
 function drawImg(selectedImg, selectedLine) {
     const img = new Image()
@@ -144,7 +154,6 @@ function drawImg(selectedImg, selectedLine) {
 
 
 
-        // window.addEventListener('resize', resizeCanvas)
         renderText(selectedLine)
 
     }
@@ -161,9 +170,6 @@ function addListeners() {
     addTouchListeners()
 
     window.addEventListener('resize', resizeCanvas)
-
-
-    // const center = { x: gElCanvas.width / 2, y: gElCanvas.height / 2 }
 }
 
 function addMouseListeners() {
@@ -181,8 +187,8 @@ function addTouchListeners() {
 function resizeCanvas() {
     const elContainer = document.querySelector('.canvas-container')
 
-    gElCanvas.width = elContainer.clientWidth
-    gElCanvas.height = elContainer.clientHeight
+    // gElCanvas.width = elContainer.offset.width
+    // gElCanvas.height = elContainer.offset.height
 
 
     renderMeme()
@@ -214,11 +220,11 @@ function downloadImg(elLink) {
 }
 
 function onDown(ev) {
-
+    console.log(ev.offsetX, ev.offsetY);
     gStartPos = getEvPos(ev)
 
 
-    if (!isLineClicked(gStartPos, ev)) return
+    if (!isLineClicked(ev)) return
     console.log('hi');
     onSwitchLine()
     setLineDrag(true)
