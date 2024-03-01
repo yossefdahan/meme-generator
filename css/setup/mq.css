@@ -20,7 +20,7 @@
     }
 
     .logo {
-        font-size: 1.4em;
+        font-size: 1.2em;
     }
 
     .main-nav-bar {
@@ -51,15 +51,15 @@
         display: inline-block;
     } */
 
-    .file-input{
-        
-           
-            height: 23px;
-            font-size: 15px;
-           
-          
-            
-        
+    .file-input {
+
+
+        height: 23px;
+        font-size: 15px;
+
+
+
+
     }
 
     .btns-canvas-container {
@@ -70,18 +70,52 @@
     .editor-btns {
         grid-column: 4;
         display: grid;
-        grid-template-rows: repeat(6, 1fr);
+        /* grid-template-rows: repeat(6, 1fr); */
         grid-template-columns: repeat(5, 1fr);
-
+        grid-template-rows: 1px 1fr 1fr 1fr 1fr 1fr;
         gap: 1em;
-
+        height: 410px;
         text-align: center;
-        background-color: #d3d3d336;
+        background-color: var(--clrPrimary3);
         border-radius: 15px;
+        padding: 0px;
     }
 
     .canvas-container {
         height: 300px;
         width: 300px;
+    }
+
+    .add-line {
+        grid-row: 3;
+    }
+
+    .switch-line {
+        grid-row: 3;
+        grid-column: 4;
+    }
+
+    .trash-line {
+        grid-column: 5;
+        grid-row: 3;
+        height: 5em;
+    }
+
+    .txt-input {
+        grid-row: 2;
+        height: 3em;
+        padding: 0px;
+
+    }
+
+    .font-right,
+    .font-left,
+    .font-center {
+        display: none;
+    }
+
+    .upload-btn {
+        height: 50px;
+        align-self: center;
     }
 }
