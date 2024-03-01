@@ -5,7 +5,7 @@ function onMoveToStorage() {
     const savedImgs = loadImgFromStorage()
     const savedMemes = loadMemeFromStorage()
     document.querySelector('.gallery-container').style.display = 'none'
-    renderStorage(savedImgs, savedMemes)
+    // renderStorage(savedImgs, savedMemes)
     renderMemeStorage()
 }
 

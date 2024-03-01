@@ -145,7 +145,7 @@ function setLineTxt(text) {
 }
 
 function setImg(elImg, imgUrl) {
-
+   
     gMeme.selectedImgId = +elImg.id
     var selectedImg = gImgs.find(img => img.url === imgUrl)
     gCurrSelectedImg = selectedImg

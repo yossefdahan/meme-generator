@@ -29,8 +29,10 @@
     </header>
 
     <section class="gallery-container">
-        <section class="local-upload-btn">
-            <input type="file" class="file-input btn" name="image" onchange="onImgInput(event)" accept="image/*" />
+        <section class="gallery-extras-btns flex">
+            <input type="file" class="local-upload-btn file-input btn" name="image" onchange="onImgInput(event)"
+                accept="image/*" />
+            <button class="random-img radius-15" onclick="getRandomImg()">Im Flexible</button>
         </section>
         <section class="imgs-container"></section>
 
@@ -83,7 +85,7 @@
 
 
     </section>
-
+    <script src="js/utils/utils.js"></script>
     <script src="js/localStorage/localStorage.js"></script>
     <script src="js/service/meme-service.js"></script>
     <script src="js/controler/meme-gallery-controler.js"></script>

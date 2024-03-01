@@ -10,6 +10,21 @@
 
 .file-input {
     border-radius: 10px;
-    width: 74px;
-    height: 20px;
+
+    height: 30px;
+    font-size: 1.3em;
+    align-self: center;
+    flex-basis: 20%;
+
+    background-color: var(--clrPrimary-2);
+}
+
+.random-img {
+    padding: 0.5em 3em;
+    font-size: 1.1em;
+    background-color: var(--clrPrimary-2);
+}
+
+.gallery-extras-btns{
+    justify-content: space-around;
 }

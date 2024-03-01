@@ -117,6 +117,16 @@ function onSwitchLine() {
     renderMeme()
 }
 
+function getRandomImg() {
+    const randomImg = getMemesImgs()
+    var randomIdx = getRandomIntInclusive(1, randomImg.length-1)
+   
+    var elImg = document.getElementById(randomIdx)
+    var selectedImg = randomImg[randomIdx - 1].url
+   
+    onImgSelect(elImg, selectedImg)
+}
+
 function onSetLineTxt(text) {
     setLineTxt(text)
     renderMeme()

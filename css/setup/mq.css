@@ -51,6 +51,17 @@
         display: inline-block;
     } */
 
+    .file-input{
+        
+           
+            height: 23px;
+            font-size: 15px;
+           
+          
+            
+        
+    }
+
     .btns-canvas-container {
         display: flex;
         flex-direction: column;
