@@ -362,7 +362,6 @@ function addKeyBoardListeners() {
 }
 
 function onkeydown(ev) {
-    ev.preventDefault()
 
     if (ev.key === 'ArrowDown') {
         setLinePosDown()
@@ -384,3 +383,12 @@ function onkeydown(ev) {
         renderMeme()
     }
 }
+
+function onSaveMemeAndImg() {
+    const currMemes = getMemesText()
+    const currImg = getCurrSelectImg()
+
+    SaveMemeAndImg(currImg, currMemes)
+
+}
+

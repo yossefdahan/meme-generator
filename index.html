@@ -15,6 +15,7 @@
             <ul class="dropdown-content">
                 <li><button class="header-btns gallery-btn" onclick="onMoveToGallery()">Gallery</button></li>
                 <li><button class="header-btns about-btn" onclick="onMoveToAbout()">About</button></li>
+                <li><button class="header-btns save-btn" onclick="onMoveToStorage()">Storage</button></li>
             </ul>
             <button class="btn-toggle-menu" onclick="toggleMenu()">
                 <div class="hamburger-lines">
@@ -46,6 +47,7 @@
                         alt=""></button>
                 <button class="font-right" onclick="onSetAlignRight()"><img src="img/right1.png" width=40
                         alt=""></button>
+                        <button class="save-img" onclick="onSaveMemeAndImg()">Save</button>
                 <select class="font-choose" onchange="onSetFontFamily(this.value)">
                     <option value="Arial">Arial</option>
                     <option value="Times New Roman">Times New Roman</option>
@@ -70,12 +72,16 @@
             </section>
     </section>
 
+<section class="storage-container">
 
 
+</section>
 
+    <script src="js/localStorage/localStorage.js"></script>
     <script src="js/service/meme-service.js"></script>
     <script src="js/controler/meme-gallery-controler.js"></script>
     <script src="js/controler/meme-editor-controler.js"></script>
+    <script src="js/storage/savedMemes.js"></script>
 </body>
 
 </html>

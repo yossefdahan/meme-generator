@@ -1,7 +1,8 @@
 'use strict'
 
 let gCurrSelectedImg
-
+const IMG_DB = 'imgDB'
+const MEME_DB = 'memeDB'
 
 var gImgs = [{
     id: 1,
@@ -150,7 +151,7 @@ function setImg(elImg, imgUrl) {
     gCurrSelectedImg = selectedImg
 
     gMeme.lines[gMeme.selectedLineIdx].txt = gMeme.lines[gMeme.selectedLineIdx].txt
-    // document.querySelector('.txt-input').value = ''
+    document.querySelector('.txt-input').value = ''
 }
 
 function createNewLine(center) {
@@ -239,3 +240,23 @@ function moveLine(dx, dy) {
     gMeme.lines[gMeme.selectedLineIdx].pos.y += dy
 }
 
+function saveImgToStorage(img) {
+    saveToStorage(IMG_DB, img)
+}
+
+function saveMemeToStorage(meme) {
+    saveToStorage(MEME_DB, meme)
+}
+
+function SaveMemeAndImg(img, meme) {
+    saveImgToStorage(img)
+    saveMemeToStorage(meme)
+}
+
+function loadImgFromStorage() {
+    return loadFromStorage('imgDB')
+}
+
+function loadMemeFromStorage() {
+    return loadFromStorage('memeDB')
+}
