@@ -25,16 +25,11 @@ function renderMeme() {
     const memeImg = getCurrSelectImg()
     const currMeme = getMemesText()
     drawImg(memeImg, currMeme)
-
 }
 
 function renderText(currMeme) {
     document.querySelector('.txt-input').value = currMeme.lines[currMeme.selectedLineIdx].txt
 
-    let textWidth
-    let textHeight
-    let textX
-    let textY
     currMeme.lines.forEach((line, idx) => {
         gCtx.beginPath()
         gCtx.lineWidth = 2
@@ -48,36 +43,36 @@ function renderText(currMeme) {
         gCtx.closePath()
 
         if (idx === currMeme.selectedLineIdx) {
-            gCtx.beginPath()
-
-            textWidth = gCtx.measureText(line.txt).width
-            textHeight = line.size + 20
-
-            textX = line.pos.x - textWidth / 2
-
-            textY = line.pos.y - textHeight / 2
-
-            gCtx.strokeStyle = 'black'
-
-            gCtx.lineWidth = 1
-            gCtx.strokeRect(textX, textY, textWidth, textHeight)
-            gCtx.closePath()
-
+            drawRect(line)
         }
     })
 }
 
-function drawRect(line, width, space) {
-    const paddingX = 5
-    const paddingY = 10
-    const rectX = line.pos.x - paddingX - width
-    const rectY = line.pos.y + space + paddingY
-    const rectWidth = width + paddingX
-    const rectHeight = space + paddingY
-    gCtx.beginPath()
-    gCtx.strokeStyle = 'black'
-    gCtx.lineWidth = 2
-    gCtx.strokeRect(rectX, rectY, rectWidth, rectHeight)
+function drawRect(line) {
+    const textWidth = gCtx.measureText(line.txt).width
+    const textHeight = line.size + 20
+    const textX = line.pos.x - textWidth / 2
+    const textY = line.pos.y - textHeight / 2
+
+    if (line.align === 'right') {
+        gCtx.beginPath()
+        gCtx.strokeStyle = 'black'
+        gCtx.lineWidth = 1
+        gCtx.strokeRect(textX - (textWidth / 2), textY, textWidth, textHeight)
+        gCtx.closePath()
+    } else if (line.align === 'left') {
+        gCtx.beginPath()
+        gCtx.strokeStyle = 'black'
+        gCtx.lineWidth = 1
+        gCtx.strokeRect(textX + (textWidth / 2), textY, textWidth, textHeight)
+        gCtx.closePath()
+    } else {
+        gCtx.beginPath()
+        gCtx.strokeStyle = 'black'
+        gCtx.lineWidth = 1
+        gCtx.strokeRect(textX, textY, textWidth, textHeight)
+        gCtx.closePath()
+    }
 }
 
 function onRemoveLine() {
@@ -227,7 +222,7 @@ function addTouchListeners() {
 }
 
 function resizeCanvas() {
-    
+
     const elContainer = document.querySelector('.canvas-container')
     gElCanvas.width = elContainer.clientWidth
     gElCanvas.height = elContainer.clientHeight
@@ -311,7 +306,7 @@ function selectLineOnClick(ev) {
             return true
         }
     })
-    
+
 }
 
 function toggleMenu() {
@@ -319,7 +314,7 @@ function toggleMenu() {
     var dropdownContent = document.querySelector('.main-nav-bar .dropdown-content')
 
     if (elBody) {
-        dropdownContent.style.display='inline-block'
+        dropdownContent.style.display = 'inline-block'
     } else {
         dropdownContent.style.display = 'none'
     }
@@ -331,7 +326,7 @@ function downloadImg(elLink) {
 }
 
 function onUploadImg() {
-    const imgDataUrl = gElCanvas.toDataURL('image/jpeg') 
+    const imgDataUrl = gElCanvas.toDataURL('image/jpeg')
 
     function onSuccess(uploadedImgUrl) {
         const url = encodeURIComponent(uploadedImgUrl)
