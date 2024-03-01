@@ -152,6 +152,7 @@ function setImg(elImg, imgUrl) {
 
     gMeme.lines[gMeme.selectedLineIdx].txt = gMeme.lines[gMeme.selectedLineIdx].txt
     // document.querySelector('.txt-input').value = ''
+    
 }
 
 function createNewLine(center) {

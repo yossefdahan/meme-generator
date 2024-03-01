@@ -5,7 +5,7 @@
 body {
     font-size: 16px;
     text-align: center;
-    background-color: lightslategray;
+    background-color: #22252C;
 }
 
 .hidden {
@@ -17,8 +17,8 @@ body {
 }
 
 .imgs-container img {
-    margin: 1em;
-    width: 20vh;
+    margin: 0.3em;
+    width: 16vw;
     border-radius: 40px;
     box-shadow: 0px 20px 8px 4px #0000001a;
     transition: box-shadow 500ms;
@@ -43,23 +43,26 @@ body {
     border-radius: 50px;
     justify-items: center;
     align-items: center;
+    background-image: linear-gradient(to right, #129EAC, #2CB77A)
 }
 
 .logo {
     grid-area: logo;
     font-size: 2em;
     color: white;
+    user-select: none;
 }
 
 ul {
     list-style: none;
     display: flex;
     gap: 20px;
+    opacity: 1;
 }
 
 .header-btns {
     border: none;
-    background-color: lightblue;
+    background-color: transparent;
     font-size: 1.5em;
 
     justify-content: space-evenly;
@@ -76,6 +79,46 @@ ul {
 .main-nav-bar {
     grid-area: nav;
     display: flex;
+    /* display: inline-flex; */
+}
+
+.main-header .btn-toggle-menu {
+    background-color: inherit;
+    border: 0;
+    cursor: pointer;
+}
+
+.main-header .btn-toggle-menu .hamburger-lines {
+    height: 26px;
+    width: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.main-header .btn-toggle-menu .hamburger-lines .line {
+    height: 4px;
+    width: 100%;
+    background-color: aliceblue;
+    transition: 0.4s;
+}
+
+body.menu-open .btn-toggle-menu .hamburger-lines .line.line1 {
+    rotate: -45deg;
+    transform-origin: right top;
+}
+
+body.menu-open .btn-toggle-menu .hamburger-lines .line.line2 {
+    scale: 0;
+}
+
+body.menu-open .btn-toggle-menu .hamburger-lines .line.line3 {
+    rotate: 45deg;
+    transform-origin: right bottom;
+}
+
+.btn-toggle-menu {
+    display: none;
 }
 
 .canvas-container {
@@ -107,6 +150,7 @@ canvas {
 
 .editor-btns button {
     border-radius: 15px;
+    cursor: pointer;
 }
 
 .editor-btns {
@@ -114,9 +158,9 @@ canvas {
     display: grid;
     grid-template-rows: repeat(6, 1fr);
     grid-template-columns: repeat(5, 1fr);
-
+    padding: 2em;
     gap: 1em;
-
+    border-radius: 30px;
     text-align: center;
     background-color: #d3d3d336;
 }
@@ -158,20 +202,34 @@ canvas {
     margin: auto;
     height: 4em;
     border-radius: 15px;
+    cursor: pointer;
 }
 
 .download-container {
-    grid-column: 3/-1;
+    grid-column: 4/6;
     grid-row: 6;
     align-self: center;
-    padding: 1em;
     color: white;
-    background-color: blueviolet;
-    border-radius: 15px;
+
 }
 
 .download-btn {
     text-decoration: none;
+    color: white;
+    padding: 1em 3em;
+    background-color: blueviolet;
+    border-radius: 15px;
+
+}
+
+.upload-btn {
+    grid-column: 1/3;
+    grid-row: 6;
+
+    background-color: blue;
+    color: white;
+   
+
 }
 
 .txt-input {
@@ -215,6 +273,7 @@ canvas {
     font-size: 1em;
     height: 3em;
     border-radius: 30px;
+    cursor: pointer;
 }
 
 .up-arrow {
@@ -224,7 +283,7 @@ canvas {
 }
 
 .down-arrow {
-    grid-column: 3;
+    grid-column: 2;
     grid-row: 5;
     font-size: 2em;
 }
@@ -236,12 +295,66 @@ canvas {
 }
 
 .left-arrow {
-    grid-column: 2;
+    grid-column: 1;
     grid-row: 5;
     font-size: 2em;
 }
 
+
+
 @media (width<=900px) {
+
+    body {
+        margin: 0 auto;
+    }
+
+    .gallery-container {
+        background-color: #383B42;
+        border-radius: 20px;
+        width: 95%;
+        margin-left: 10px;
+    }
+
+    .imgs-container img {
+        margin: 0.3em;
+        width: 44vw;
+        border-radius: 40px;
+        box-shadow: 0px 20px 8px 4px #0000001a;
+        transition: box-shadow 500ms;
+    }
+
+    .logo {
+        font-size: 1.4em;
+    }
+
+    .main-nav-bar {
+        font-size: 0.9em;
+        margin-right: 0.5em;
+
+    }
+
+    .main-header {
+        height: 75px;
+        align-content: center;
+        border-radius: 0;
+        width: 100%;
+        margin-bottom: 2em;
+    }
+
+    /* .main-nav-bar .dropdown-content {
+        display: none;
+        position: absolute;
+        flex-direction: column;
+        translate: -174px 87px;
+        scale: 2;
+        background-color: #22252cd7;
+        padding: 0px 36px;
+        border-radius: 5px;
+    }
+
+    .btn-toggle-menu {
+        display: inline-block;
+    } */
 
     .btns-canvas-container {
         display: flex;

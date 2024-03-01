@@ -16,14 +16,16 @@ function onInit() {
     const center = { x: gElCanvas.width / 2, y: gElCanvas.height / 2 }
     updateTextPos(center)
 
-    window.addEventListener('resize', resizeCanvas)
+    window.addEventListener('resize', resizeCanvas())
     resizeCanvas()
 }
 
 function renderMeme() {
+
     const memeImg = getCurrSelectImg()
     const currMeme = getMemesText()
     drawImg(memeImg, currMeme)
+
 }
 
 function renderText(currMeme) {
@@ -60,6 +62,7 @@ function renderText(currMeme) {
             gCtx.lineWidth = 1
             gCtx.strokeRect(textX, textY, textWidth, textHeight)
             gCtx.closePath()
+
         }
     })
 }
@@ -177,13 +180,18 @@ function onSetAlignRight() {
 }
 
 function drawImg(selectedImg, selectedLine) {
+
+
+
     const img = new Image()
     img.src = selectedImg.url
     img.onload = () => {
         gElCanvas.height = (img.naturalHeight / img.naturalWidth) * gElCanvas.width
         gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
 
+
         renderText(selectedLine)
+
     }
 }
 
@@ -200,9 +208,9 @@ function addListeners() {
 
         const center = { x: gElCanvas.width / 2, y: gElCanvas.height / 2 }
         updateTextPos(center)
-        renderMeme()
-    })
+        resizeCanvas()
 
+    })
 
 }
 
@@ -219,8 +227,11 @@ function addTouchListeners() {
 }
 
 function resizeCanvas() {
+    
     const elContainer = document.querySelector('.canvas-container')
     gElCanvas.width = elContainer.clientWidth
+    gElCanvas.height = elContainer.clientHeight
+    renderMeme()
 }
 
 function getEvPos(ev) {
@@ -241,11 +252,6 @@ function getEvPos(ev) {
         }
     }
     return pos
-}
-
-function downloadImg(elLink) {
-    const imgContent = gElCanvas.toDataURL('image/jpeg')
-    elLink.href = imgContent
 }
 
 function onDown(ev) {
@@ -275,14 +281,14 @@ function onUp() {
 }
 
 function selectLineOnClick(ev) {
-    
+
     const currMeme = getMemesText()
 
     gStartPos = getEvPos(ev)
     const clickX = gStartPos.x
     const clickY = gStartPos.y
     currMeme.lines.forEach((line, idx) => {
-       
+
         const textMatrix = gCtx.measureText(line.txt)
         const textWidth = textMatrix.width
 
@@ -302,6 +308,54 @@ function selectLineOnClick(ev) {
             document.querySelector('.txt-input').value = currMeme.lines[currMeme.selectedLineIdx].txt
             renderText(currMeme)
             renderMeme()
+            return true
         }
     })
+    
+}
+
+function toggleMenu() {
+    var elBody = document.body.classList.toggle('menu-open')
+    var dropdownContent = document.querySelector('.main-nav-bar .dropdown-content')
+
+    if (elBody) {
+        dropdownContent.style.display='inline-block'
+    } else {
+        dropdownContent.style.display = 'none'
+    }
+}
+
+function downloadImg(elLink) {
+    const imgContent = gElCanvas.toDataURL('image/jpeg')
+    elLink.href = imgContent
+}
+
+function onUploadImg() {
+    const imgDataUrl = gElCanvas.toDataURL('image/jpeg') 
+
+    function onSuccess(uploadedImgUrl) {
+        const url = encodeURIComponent(uploadedImgUrl)
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&t=${url}`)
+    }
+    doUploadImg(imgDataUrl, onSuccess)
+}
+
+function doUploadImg(imgDataUrl, onSuccess) {
+    const formData = new FormData()
+    formData.append('img', imgDataUrl)
+
+    const XHR = new XMLHttpRequest()
+    XHR.onreadystatechange = () => {
+        if (XHR.readyState !== XMLHttpRequest.DONE) return
+        if (XHR.status !== 200) return console.error('Error uploading image')
+        const { responseText: url } = XHR
+
+        console.log('Got back live url:', url)
+        onSuccess(url)
+    }
+    XHR.onerror = (req, ev) => {
+        console.error('Error connecting to server with request:', req, '\nGot response data:', ev)
+    }
+    XHR.open('POST', '//ca-upload.com/here/upload.php')
+    XHR.send(formData)
 }
