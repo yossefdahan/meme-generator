@@ -4,21 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Meme-Generator</title>
     <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body onload="onInitGallery()" class="main-container">
-    <header class="main-header">
-        <h1 class="logo">meme-generator</h1>
-        <nav class="main-nav-bar main-nav">
-            <ul class="dropdown-content">
+    <header class="main-header grid">
+        <h1 class="logo">FUN MEMES</h1>
+        <nav class="main-nav-bar main-nav flex">
+            <ul class="dropdown-content flex">
                 <li><button class="header-btns gallery-btn" onclick="onMoveToGallery()">Gallery</button></li>
                 <li><button class="header-btns about-btn" onclick="onMoveToAbout()">About</button></li>
                 <li><button class="header-btns save-btn" onclick="onMoveToStorage()">Storage</button></li>
             </ul>
-            <button class="btn-toggle-menu" onclick="toggleMenu()">
-                <div class="hamburger-lines">
+            <button class="btn-toggle-menu hidden" onclick="toggleMenu()">
+                <div class="hamburger-lines flex">
                     <span class="line line1"></span>
                     <span class="line line2"></span>
                     <span class="line line3"></span>
@@ -27,55 +27,62 @@
         </nav>
 
     </header>
-    <section class="gallery-container">
 
+    <section class="gallery-container">
+        <section class="local-upload-btn">
+            <input type="file" class="file-input btn" name="image" onchange="onImgInput(event)" accept="image/*" />
+        </section>
         <section class="imgs-container"></section>
 
     </section>
 
     <section class="editor-container hidden">
-        <div class="btns-canvas-container">
+        <div class="btns-canvas-container grid">
 
-            <div class="canvas-container">
-                <canvas class="canvas" width="500" height="500"></canvas>
+            <div class="canvas-container flex radius-15">
+                <canvas class="canvas radius-15" width="500" height="500"></canvas>
             </div>
 
-            <section class="editor-btns">
-                <input class="txt-input" type="text" oninput="onSetLineTxt(this.value)" placeholder="Enter text..">
+            <section class="editor-btns grid text-align-center">
+                <input class="txt-input text-align-center" type="text" oninput="onSetLineTxt(this.value)"
+                    placeholder="Enter text..">
 
-                <button class="font-center" onclick="onSetAlignCenter()"><img src="img/center.png" width=40
-                        alt=""></button>
-                <button class="font-right" onclick="onSetAlignRight()"><img src="img/right1.png" width=40
-                        alt=""></button>
-                        <button class="save-img" onclick="onSaveMemeAndImg()">Save</button>
-                <select class="font-choose" onchange="onSetFontFamily(this.value)">
+                <button class="font-center height-4 grid-row-3" onclick="onSetAlignCenter()"><img src="img/center.png"
+                        width=40 alt=""></button>
+                <button class="font-right height-4 grid-row-3" onclick="onSetAlignRight()"><img src="img/right1.png"
+                        width=40 alt=""></button>
+                <button class="save-img" onclick="onSaveMemeAndImg()">Save</button>
+                <select class="font-choose text-align-center" onchange="onSetFontFamily(this.value)">
                     <option value="Arial">Arial</option>
                     <option value="Times New Roman">Times New Roman</option>
                     <option value="Verdana">Verdana</option>
                 </select>
-                <button class="font-up" onclick="onChangeSizeUp()">A+</button>
-                <button class="font-down" onclick="onChangeSizeDown()">A-</button>
-                <input class="font-color" type="color" onchange="onChangeColor(this.value)" id="color">
-                <button class="font-left" onclick="onSetAlignLeft()"><img src="img/left1.png" width=40 alt=""></button>
+                <button class="font-up grid-row-3" onclick="onChangeSizeUp()">A+</button>
+                <button class="font-down grid-row-3" onclick="onChangeSizeDown()">A-</button>
+                <input class="font-color radius-15 height-4" type="color" onchange="onChangeColor(this.value)"
+                    id="color">
+                <button class="font-left height-4 grid-row-3" onclick="onSetAlignLeft()"><img src="img/left1.png"
+                        width=40 alt=""></button>
 
-                <button class="trash-line" onclick="onRemoveLine()"><img src="/img/trash.png" width=40 alt=""></button>
+                <button class="trash-line height-4" onclick="onRemoveLine()"><img src="/img/trash.png" width=40
+                        alt=""></button>
                 <button class="add-line" onclick="onAddLine()">➕</button>
                 <button class="switch-line" onclick="onSwitchLine()">S</button>
-                <div class="download-container"><a href="#" class="download-btn" onclick="downloadImg(this)"
+                <div class="download-container"><a href="#" class="download-btn radius-15" onclick="downloadImg(this)"
                         download="my-img.jpg">Download</a></div>
                 <button class="upload-btn" onclick="onUploadImg()"> Upload</button>
-                <button class="down-arrow" onclick="onSetLinePosDown()">⬇</button>
-                <button class="up-arrow" onclick="onSetLinePosUp()">⬆</button>
-                <button class="left-arrow" onclick="onSetLinePosLeft()">⬅</button>
-                <button class="right-arrow" onclick="onSetLinePosRight()">➡</button>
+                <button class="down-arrow font-size-2 grid-row-5" onclick="onSetLinePosDown()">⬇</button>
+                <button class="up-arrow font-size-2 grid-row-5" onclick="onSetLinePosUp()">⬆</button>
+                <button class="left-arrow font-size-2 grid-row-5" onclick="onSetLinePosLeft()">⬅</button>
+                <button class="right-arrow font-size-2 grid-row-5" onclick="onSetLinePosRight()">➡</button>
 
             </section>
     </section>
 
-<section class="storage-container">
+    <section class="storage-container">
 
 
-</section>
+    </section>
 
     <script src="js/localStorage/localStorage.js"></script>
     <script src="js/service/meme-service.js"></script>

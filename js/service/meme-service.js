@@ -260,3 +260,15 @@ function loadImgFromStorage() {
 function loadMemeFromStorage() {
     return loadFromStorage('memeDB')
 }
+
+function AddToImgs(img) {
+    var count = gImgs.length + 1
+
+    const newImg = {
+        id: count,
+        url: img.src,
+        keywords: ['funny', 'cat']
+    }
+    gImgs.push(newImg)
+    renderGallery()
+}

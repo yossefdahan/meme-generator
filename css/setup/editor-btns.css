@@ -1,0 +1,109 @@
+.font-down {
+    grid-column: 2;
+    background-color: var(--clrPrimary-4);
+    border: 1px solid var(--clrPrimary4);
+}
+
+.switch-line {
+    grid-column: 2;
+    grid-row: 2;
+    font-size: 1em;
+    margin: 0;
+    padding: 0;
+    background-color: var(--clrPrimary-1);
+}
+
+.add-line {
+    grid-column: 3;
+    grid-row: 2;
+    background-color: green;
+    color: var(--clrPrimary-4);
+}
+
+.font-up {
+    grid-column: 1;
+    background-color: var(--clrPrimary-4);
+    border: 1px solid var(--clrPrimary4);
+}
+
+.font-color {
+    grid-column: 4;
+    grid-row: 4;
+    background-color: var(--clrPrimary-4);
+    margin: auto;
+    cursor: pointer;
+}
+
+.download-container {
+    grid-column: 4/6;
+    grid-row: 6;
+    align-self: center;
+    color: var(--clrPrimary-4);
+
+}
+
+.download-btn {
+    text-decoration: none;
+    color: var(--clrPrimary-4);
+    padding: 1em 3em;
+    background-color: blueviolet;
+}
+
+.upload-btn {
+    grid-column: 1/3;
+    grid-row: 6;
+    background-color: #0000ff;
+    background-color: var(--clrPrimary-4);
+}
+
+.txt-input {
+    grid-column: 1/ -1;
+    grid-row: 1;
+    border-radius: 50px;
+
+    justify-content: center;
+    padding: 1em;
+    font-size: 1em;
+}
+
+.font-center {
+    grid-column: 4;
+}
+
+.font-right {
+    grid-column: 5;
+}
+
+.font-left {
+    grid-column: 3;
+}
+
+.trash-line {
+    grid-column: 4;
+    grid-row: 2;
+}
+
+.font-choose {
+    grid-column: 1/4;
+    grid-row: 4/5;
+    font-size: 1em;
+    height: 3em;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.up-arrow {
+    grid-column: 4;
+}
+
+.down-arrow {
+    grid-column: 2;
+}
+
+.right-arrow {
+    grid-column: 5;
+}
+
+.left-arrow {
+    grid-column: 1;
+}

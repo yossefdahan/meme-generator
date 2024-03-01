@@ -20,7 +20,6 @@ function onInitEditor() {
 }
 
 function renderMeme() {
-
     const memeImg = getCurrSelectImg()
     const currMeme = getMemesText()
     drawImg(memeImg, currMeme)
@@ -35,6 +34,17 @@ function renderText(currMeme) {
             drawRect(line)
         }
     })
+}
+
+function drawImg(selectedImg, selectedLine) {
+    const img = new Image()
+    img.src = selectedImg.url
+    img.onload = () => {
+        gElCanvas.height = (img.naturalHeight / img.naturalWidth) * gElCanvas.width
+        gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
+
+        renderText(selectedLine)
+    }
 }
 
 function drawText(line) {
@@ -174,22 +184,6 @@ function onSetAlignRight() {
     const align = 'right'
     updateAlignToCenter(align)
     renderMeme()
-}
-
-function drawImg(selectedImg, selectedLine) {
-
-
-
-    const img = new Image()
-    img.src = selectedImg.url
-    img.onload = () => {
-        gElCanvas.height = (img.naturalHeight / img.naturalWidth) * gElCanvas.width
-        gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
-
-
-        renderText(selectedLine)
-
-    }
 }
 
 function onClearCanvas() {
@@ -389,6 +383,5 @@ function onSaveMemeAndImg() {
     const currImg = getCurrSelectImg()
 
     SaveMemeAndImg(currImg, currMemes)
-
 }
 

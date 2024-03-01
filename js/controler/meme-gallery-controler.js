@@ -25,5 +25,19 @@ function onImgSelect(elImg, imgUrl) {
     onInitEditor()
     renderMeme()
     resizeCanvas()
+}
 
+function onImgInput(ev) {
+    loadImageFromInput(ev, AddToImgs)
+}
+
+function loadImageFromInput(ev, onImageReady) {
+    const reader = new FileReader()
+
+    reader.onload = ev => {
+        let img = new Image()
+        img.src = ev.target.result
+        img.onload = () => onImageReady(img)
+    }
+    reader.readAsDataURL(ev.target.files[0])
 }

@@ -1,0 +1,32 @@
+.canvas-container {
+    grid-column: 2;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+canvas {
+    border: 1px solid var(--clrPrimary4);
+    width: 100%;
+}
+
+.btns-canvas-container {
+    grid-template-columns: minmax(10px, 1fr) minmax(200px, 3fr)minmax(10px, 1fr)minmax(200px, 3fr)minmax(10px, 1fr);
+
+    width: 100%;
+    margin-top: 3rem;
+    align-items: center;
+    justify-items: center;
+}
+
+.editor-btns {
+    grid-column: 4;
+
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+
+    padding: 2em;
+    gap: 1em;
+    border-radius: 30px;
+    background-color: var(--clrPrimary1);
+}

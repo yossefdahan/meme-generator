@@ -1,0 +1,71 @@
+.main-header {
+    grid-row: 1;
+    grid-column: span 3;
+    grid-template-areas: "logo nav";
+    background-color: var(--clrPrimary-2);
+    border-radius: 50px;
+    justify-items: center;
+    align-items: center;
+    background-image: linear-gradient(to right, #129EAC, #2CB77A)
+}
+
+ul {
+    list-style: none;
+    gap: 20px;
+    opacity: 1;
+}
+
+.header-btns {
+    border: none;
+    background-color: transparent;
+    font-size: 1.2em;
+
+    justify-content: space-evenly;
+    color: var(--clrPrimary-4);
+    transition: background-color 300ms;
+}
+
+.header-btns:hover {
+    color: var(--clrPrimary4);
+    background-color: var(--clrPrimary3);
+    border-radius: 20px 1px 20px 1px;
+}
+
+.main-nav-bar {
+    grid-area: nav;
+    display: flex;
+}
+
+.main-header .btn-toggle-menu {
+    background-color: inherit;
+    border: 0;
+    cursor: pointer;
+}
+
+.main-header .btn-toggle-menu .hamburger-lines {
+    height: 26px;
+    width: 32px;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.main-header .btn-toggle-menu .hamburger-lines .line {
+    height: 4px;
+    width: 100%;
+    background-color: var(--clrPrimary-5);
+    transition: 0.4s;
+}
+
+body.menu-open .btn-toggle-menu .hamburger-lines .line.line1 {
+    rotate: -45deg;
+    transform-origin: right top;
+}
+
+body.menu-open .btn-toggle-menu .hamburger-lines .line.line2 {
+    scale: 0;
+}
+
+body.menu-open .btn-toggle-menu .hamburger-lines .line.line3 {
+    rotate: 45deg;
+    transform-origin: right bottom;
+}

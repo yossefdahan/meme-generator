@@ -1,0 +1,7 @@
+.logo {
+    grid-area: logo;
+    font-size: 2em;
+    color: var(--clrPrimary-4);
+    user-select: none;
+    letter-spacing: 0.1em;
+}
