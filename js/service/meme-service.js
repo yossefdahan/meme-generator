@@ -155,9 +155,7 @@ function setImg(elImg, imgUrl) {
 }
 
 function createNewLine(center) {
-    console.log(center);
     const { x, y } = center
-    console.log(x, y);
     var newLine =
     {
         txt: 'more....',
@@ -199,13 +197,14 @@ function setLinePosDown() {
 function setLinePosUp() {
     gMeme.lines[gMeme.selectedLineIdx].pos.y -= 10
 }
+
 function setLinePosRight() {
     gMeme.lines[gMeme.selectedLineIdx].pos.x += 10
 }
+
 function setLinePosLeft() {
     gMeme.lines[gMeme.selectedLineIdx].pos.x -= 10
 }
-
 
 function updateTextPos(center) {
     gMeme.lines[gMeme.selectedLineIdx].pos.x = center.x
@@ -217,20 +216,11 @@ function getNewLinePos(x, y, width, height) {
     gMeme.lines[gMeme.selectedLineIdx].pos.y = y
     gMeme.lines[gMeme.selectedLineIdx].wordSize.width = width
     gMeme.lines[gMeme.selectedLineIdx].wordSize.height = height
-    console.log(x, y, width, height);
 }
 
-function removeLine(currLine) {
-    console.log(currLine);
-
-
-    if (gMeme.lines.length === 0) {
-        gMeme.lines.selectedLineIdx = 0
-    } else {
-        gMeme.lines.selectedLineIdx = Math.max(0, gMeme.lines.selectedLineIdx - 1)
-    }
-    gMeme.lines.splice(gMeme.lines[currLine], 1)
-
+function removeLine() {
+    gMeme.lines = gMeme.lines.filter((line, idx) => idx !== gMeme.selectedLineIdx)
+    if (gMeme.selectedLineIdx != 0) gMeme.selectedLineIdx--
 }
 
 function setFontFamily(value) {
@@ -244,79 +234,19 @@ function updateAlignToCenter(align) {
 function isLineClicked({ x, y }) {
     const { pos, wordSize } = gMeme.lines[gMeme.selectedLineIdx]
 
-
-    return x >= pos.x && x <= pos.x + wordSize.width &&
+    const distance =
+        x >= pos.x && x <= pos.x + wordSize.width &&
         y >= pos.y && y <= pos.y + wordSize.height
 
-
+    return distance
 }
 
 function setLineDrag(isDrag) {
     gMeme.lines[gMeme.selectedLineIdx].isDrag = isDrag
-
 }
 
 function moveLine(dx, dy) {
-    const line = gMeme.lines[gMeme.selectedLineIdx]
-    const { pos, size, isDrag } = line
-    const clickX = ev.offsetX
-    const clickY = ev.offsetY
-
-    const textWidth = gCtx.measureText(line.txt).width
-    const textHeight = line.size
-    const textX = line.pos.x - textWidth / 2
-
-    const textY = line.pos.y + (currMeme.selectedLineIdx * 50) - textHeight / 2
-    return (
-        clickX >= textX &&
-        clickX <= textX + textWidth &&
-        clickY >= textY &&
-        clickY <= textY + textHeight
-    )
-
-    pos.x += dx
-    pos.y += d
-
-    console.log(gElCanvas.width, gElCanvas.height)
-
-    if (pos.x < 0) pos.x = 0
-    if (pos.y < 0) pos.y = 0
-    if (pos.x + gCtx.measureText(line.txt).width > gElCanvas.width) {
-        pos.x = gElCanvas.width - gCtx.measureText(line.txt).width
-
-    }
-    if (pos.y + size > gElCanvas.height) {
-
-        pos.y = gElCanvas.height - size
-    }
-    renderText(getMemesText())
+    gMeme.lines[gMeme.selectedLineIdx].pos.x += dx
+    gMeme.lines[gMeme.selectedLineIdx].pos.y += dy
 }
 
-function selectLineOnClick(ev) {
-
-    const currMeme = getMemesText()
-    const clickX = ev.offsetX
-    const clickY = ev.offsetY
-    gStartPos = getEvPos(ev)
-    currMeme.lines.forEach((line, idx) => {
-
-        const textWidth = gCtx.measureText(line.txt).width
-        const textHeight = line.size
-        const textX = line.pos.x - textWidth / 2
-        const textY = line.pos.y + (idx * 50) - textHeight / 2
-
-        if (
-            clickX >= textX &&
-            clickX <= textX + textWidth &&
-            clickY >= textY &&
-            clickY <= textY + textHeight
-        ) {
-            currMeme.selectedLineIdx = idx
-            renderText(currMeme)
-            document.querySelector('.txt-input').value = currMeme.lines[currMeme.selectedLineIdx].txt
-
-            renderMeme()
-            return
-        }
-    })
-}
