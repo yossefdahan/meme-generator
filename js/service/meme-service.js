@@ -129,7 +129,6 @@ function getMemesImgs() {
 }
 
 function getMemesText() {
-    // const meme = gMeme.find(meme => meme.selectedImgId === gCurrSelectedImg.id)
     if (gCurrSelectedImg && gCurrSelectedImg.id === gMeme.selectedImgId) {
         return gMeme
     }
@@ -152,7 +151,6 @@ function setImg(elImg, imgUrl) {
 
     gMeme.lines[gMeme.selectedLineIdx].txt = gMeme.lines[gMeme.selectedLineIdx].txt
     // document.querySelector('.txt-input').value = ''
-    
 }
 
 function createNewLine(center) {
@@ -230,16 +228,6 @@ function setFontFamily(value) {
 
 function updateAlignToCenter(align) {
     gMeme.lines[gMeme.selectedLineIdx].align = align
-}
-
-function isLineClicked({ x, y }) {
-    const { pos, wordSize } = gMeme.lines[gMeme.selectedLineIdx]
-
-    const distance =
-        x >= pos.x && x <= pos.x + wordSize.width &&
-        y >= pos.y && y <= pos.y + wordSize.height
-
-    return distance
 }
 
 function setLineDrag(isDrag) {

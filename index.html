@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 
-<body onload="onInit()" class="main-container">
+<body onload="onInitGallery()" class="main-container">
     <header class="main-header">
         <h1 class="logo">meme-generator</h1>
         <nav class="main-nav-bar main-nav">
@@ -61,7 +61,7 @@
                 <button class="switch-line" onclick="onSwitchLine()">S</button>
                 <div class="download-container"><a href="#" class="download-btn" onclick="downloadImg(this)"
                         download="my-img.jpg">Download</a></div>
-                        <button class="upload-btn" onclick="onUploadImg()"> Upload</button>
+                <button class="upload-btn" onclick="onUploadImg()"> Upload</button>
                 <button class="down-arrow" onclick="onSetLinePosDown()">⬇</button>
                 <button class="up-arrow" onclick="onSetLinePosUp()">⬆</button>
                 <button class="left-arrow" onclick="onSetLinePosLeft()">⬅</button>
@@ -70,7 +70,7 @@
             </section>
     </section>
 
-    
+
 
 
     <script src="js/service/meme-service.js"></script>

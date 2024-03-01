@@ -17,11 +17,12 @@ function renderGallery() {
 }
 
 function onImgSelect(elImg, imgUrl) {
+    
     setImg(elImg, imgUrl)
 
     document.querySelector('.gallery-container').style.display = 'none'
     document.querySelector('.editor-container').classList.remove('hidden')
-
+    onInitEditor()
     renderMeme()
     resizeCanvas()
 

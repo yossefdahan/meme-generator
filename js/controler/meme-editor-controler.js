@@ -8,16 +8,15 @@ const TOUCH_EVENTS = ['touchstart', 'touchmove', 'touchend']
 
 
 
-function onInit() {
-    onInitGallery()
+function onInitEditor() {
+
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
     addListeners()
     const center = { x: gElCanvas.width / 2, y: gElCanvas.height / 2 }
     updateTextPos(center)
-
     window.addEventListener('resize', resizeCanvas())
-    resizeCanvas()
+    addKeyBoardListeners()
 }
 
 function renderMeme() {
@@ -31,21 +30,24 @@ function renderText(currMeme) {
     document.querySelector('.txt-input').value = currMeme.lines[currMeme.selectedLineIdx].txt
 
     currMeme.lines.forEach((line, idx) => {
-        gCtx.beginPath()
-        gCtx.lineWidth = 2
-        gCtx.strokeStyle = `${line.stroke}`
-        gCtx.fillStyle = `${line.color}`
-        gCtx.font = `${line.size}px ${line.font}`
-        gCtx.textAlign = `${line.align}`
-        gCtx.textBaseline = 'middle'
-        gCtx.strokeText(line.txt, line.pos.x, line.pos.y)
-        gCtx.fillText(line.txt, line.pos.x, line.pos.y)
-        gCtx.closePath()
-
+        drawText(line)
         if (idx === currMeme.selectedLineIdx) {
             drawRect(line)
         }
     })
+}
+
+function drawText(line) {
+    gCtx.beginPath()
+    gCtx.lineWidth = 2
+    gCtx.strokeStyle = `${line.stroke}`
+    gCtx.fillStyle = `${line.color}`
+    gCtx.font = `${line.size}px ${line.font}`
+    gCtx.textAlign = `${line.align}`
+    gCtx.textBaseline = 'middle'
+    gCtx.strokeText(line.txt, line.pos.x, line.pos.y)
+    gCtx.fillText(line.txt, line.pos.x, line.pos.y)
+    gCtx.closePath()
 }
 
 function drawRect(line) {
@@ -252,7 +254,7 @@ function getEvPos(ev) {
 function onDown(ev) {
     gStartPos = getEvPos(ev)
     if (!selectLineOnClick(ev)) return
-    document.body.style.cursor = 'grabbing'
+
 }
 
 function onMove(ev) {
@@ -303,7 +305,7 @@ function selectLineOnClick(ev) {
             document.querySelector('.txt-input').value = currMeme.lines[currMeme.selectedLineIdx].txt
             renderText(currMeme)
             renderMeme()
-            return true
+            document.body.style.cursor = 'grabbing'
         }
     })
 
@@ -353,4 +355,32 @@ function doUploadImg(imgDataUrl, onSuccess) {
     }
     XHR.open('POST', '//ca-upload.com/here/upload.php')
     XHR.send(formData)
+}
+
+function addKeyBoardListeners() {
+    document.addEventListener('keydown', onkeydown)
+}
+
+function onkeydown(ev) {
+    ev.preventDefault()
+
+    if (ev.key === 'ArrowDown') {
+        setLinePosDown()
+        renderMeme()
+    }
+
+    if (ev.key === 'ArrowUp') {
+        setLinePosUp()
+        renderMeme()
+    }
+
+    if (ev.key === 'ArrowLeft') {
+        onSetLinePosLeft()
+        renderMeme()
+    }
+
+    if (ev.key === 'ArrowRight') {
+        onSetLinePosRight()
+        renderMeme()
+    }
 }
