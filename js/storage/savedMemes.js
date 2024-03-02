@@ -48,6 +48,3 @@ function SavedMeme(selectedImg, selectedLine) {
     gImgFromStorage = selectedImg
     gMemeFromStorage = selectedLine
 }
-
-
-

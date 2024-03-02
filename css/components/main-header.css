@@ -1,6 +1,4 @@
 .main-header {
-    grid-row: 1;
-    grid-column: span 3;
     grid-template-areas: "logo nav";
     background-color: var(--clrPrimary-2);
     border-radius: 50px;

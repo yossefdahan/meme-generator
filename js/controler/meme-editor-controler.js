@@ -401,4 +401,3 @@ function onSaveMemeAndImg() {
     const canvasURL = gElCanvas.toDataURL()
     SaveCanvas(randomId, canvasURL)
 }
-

@@ -36,30 +36,9 @@
         margin-bottom: 2em;
     }
 
-    /* .main-nav-bar .dropdown-content {
-        display: none;
-        position: absolute;
-        flex-direction: column;
-        translate: -174px 87px;
-        scale: 2;
-        background-color: #22252cd7;
-        padding: 0px 36px;
-        border-radius: 5px;
-    }
-
-    .btn-toggle-menu {
-        display: inline-block;
-    } */
-
     .file-input {
-
-
         height: 23px;
         font-size: 15px;
-
-
-
-
     }
 
     .btns-canvas-container {
@@ -70,7 +49,6 @@
     .editor-btns {
         grid-column: 4;
         display: grid;
-        /* grid-template-rows: repeat(6, 1fr); */
         grid-template-columns: repeat(5, 1fr);
         grid-template-rows: 1px 1fr 1fr 1fr 1fr 1fr;
         gap: 1em;
