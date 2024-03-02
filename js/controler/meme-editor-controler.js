@@ -1,6 +1,6 @@
 'use strict'
 
-
+var gmemesFromStorage = []
 let gElCanvas
 let gCtx
 let gStartPos
@@ -9,7 +9,6 @@ const TOUCH_EVENTS = ['touchstart', 'touchmove', 'touchend']
 
 
 function onInitEditor() {
-
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
     addListeners()
@@ -22,10 +21,18 @@ function onInitEditor() {
 function renderMeme() {
     const memeImg = getCurrSelectImg()
     const currMeme = getMemesText()
+    if (!memeImg && !currMeme) {
+        gmemesFromStorage = gMemeFromStorage
+        drawImg(gImgFromStorage, gMemeFromStorage)
+        return
+    }
     drawImg(memeImg, currMeme)
 }
 
 function renderText(currMeme) {
+    if (!currMeme) {
+        currMeme = gMemeFromStorage
+    }
     document.querySelector('.txt-input').value = currMeme.lines[currMeme.selectedLineIdx].txt
 
     currMeme.lines.forEach((line, idx) => {
@@ -37,6 +44,7 @@ function renderText(currMeme) {
 }
 
 function drawImg(selectedImg, selectedLine) {
+
     const img = new Image()
     img.src = selectedImg.url
     img.onload = () => {
@@ -111,7 +119,6 @@ function onSwitchLine() {
     if (memes.selectedLineIdx >= memes.lines.length) {
 
         document.querySelector('.font-color').value = memes.lines[currLine].color
-
         memes.selectedLineIdx = 0
     }
     renderMeme()
@@ -119,11 +126,10 @@ function onSwitchLine() {
 
 function getRandomImg() {
     const randomImg = getMemesImgs()
-    var randomIdx = getRandomIntInclusive(1, randomImg.length-1)
-   
+    var randomIdx = getRandomIntInclusive(1, randomImg.length - 1)
     var elImg = document.getElementById(randomIdx)
     var selectedImg = randomImg[randomIdx - 1].url
-   
+
     onImgSelect(elImg, selectedImg)
 }
 
@@ -138,8 +144,18 @@ function onChangeColor(color) {
 }
 
 function onMoveToGallery() {
-    document.querySelector('.gallery-container').style.display = 'block'
-    document.querySelector('.editor-container').classList.add('hidden')
+    const elMainStorage = document.querySelector('.main-storage')
+    const elGalleryContainer = document.querySelector('.gallery-container')
+    const elEditorContainer = document.querySelector('.editor-container')
+
+    if (!elMainStorage.classList.contains('hidden') && elGalleryContainer.classList.contains('hidden')) {
+        elMainStorage.classList.add('hidden')
+        elGalleryContainer.classList.remove('hidden')
+    }
+    if (!elEditorContainer.classList.contains('hidden') && elGalleryContainer.classList.contains('hidden')) {
+        elEditorContainer.classList.add('hidden')
+        elGalleryContainer.classList.remove('hidden')
+    }
 }
 
 function onChangeSizeUp() {
@@ -173,7 +189,6 @@ function onSetLinePosLeft() {
 }
 
 function onSetFontFamily(value) {
-
     setFontFamily(value)
     renderMeme()
 }
@@ -210,9 +225,7 @@ function addListeners() {
         const center = { x: gElCanvas.width / 2, y: gElCanvas.height / 2 }
         updateTextPos(center)
         resizeCanvas()
-
     })
-
 }
 
 function addMouseListeners() {
@@ -228,7 +241,6 @@ function addTouchListeners() {
 }
 
 function resizeCanvas() {
-
     const elContainer = document.querySelector('.canvas-container')
     gElCanvas.width = elContainer.clientWidth
     gElCanvas.height = elContainer.clientHeight
@@ -236,7 +248,6 @@ function resizeCanvas() {
 }
 
 function getEvPos(ev) {
-
     let pos = {
         x: ev.offsetX,
         y: ev.offsetY,
@@ -245,7 +256,6 @@ function getEvPos(ev) {
 
         ev.preventDefault()
         ev = ev.changedTouches[0]
-
 
         pos = {
             x: ev.pageX - gElCanvas.offsetLeft,
@@ -258,7 +268,6 @@ function getEvPos(ev) {
 function onDown(ev) {
     gStartPos = getEvPos(ev)
     if (!selectLineOnClick(ev)) return
-
 }
 
 function onMove(ev) {
@@ -282,7 +291,6 @@ function onUp() {
 }
 
 function selectLineOnClick(ev) {
-
     const currMeme = getMemesText()
 
     gStartPos = getEvPos(ev)
@@ -389,9 +397,8 @@ function onkeydown(ev) {
 }
 
 function onSaveMemeAndImg() {
-    const currMemes = getMemesText()
-    const currImg = getCurrSelectImg()
-
-    SaveMemeAndImg(currImg, currMemes)
+    const randomId = makeId(3)
+    const canvasURL = gElCanvas.toDataURL()
+    SaveCanvas(randomId, canvasURL)
 }
 

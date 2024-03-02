@@ -4,6 +4,9 @@ let gCurrSelectedImg
 const IMG_DB = 'imgDB'
 const MEME_DB = 'memeDB'
 
+var gSavedImg = []
+var gSavedMeme = []
+
 var gImgs = [{
     id: 1,
     url: 'img/1.jpg',
@@ -124,8 +127,6 @@ var gKeywordSearchCountMap = {
 }
 
 function getMemesImgs() {
-
-
     return gImgs
 }
 
@@ -141,11 +142,9 @@ function getCurrSelectImg() {
 
 function setLineTxt(text) {
     gMeme.lines[gMeme.selectedLineIdx].txt = text
-
 }
 
 function setImg(elImg, imgUrl) {
-   
     gMeme.selectedImgId = +elImg.id
     var selectedImg = gImgs.find(img => img.url === imgUrl)
     gCurrSelectedImg = selectedImg
@@ -174,7 +173,6 @@ function createNewLine(center) {
             height: 20,
         }
     }
-
     gMeme.lines.push(newLine)
 }
 
@@ -240,7 +238,7 @@ function moveLine(dx, dy) {
     gMeme.lines[gMeme.selectedLineIdx].pos.y += dy
 }
 
-function saveImgToStorage(img) {
+function saveCanvasToStorage(img) {
     saveToStorage(IMG_DB, img)
 }
 
@@ -248,12 +246,14 @@ function saveMemeToStorage(meme) {
     saveToStorage(MEME_DB, meme)
 }
 
-function SaveMemeAndImg(img, meme) {
-    saveImgToStorage(img)
-    saveMemeToStorage(meme)
+function SaveCanvas(id, canvasURL) {
+    gSavedMeme.push({ id, gMeme })
+    gSavedImg.push({ id, canvasURL })
+    saveCanvasToStorage(gSavedImg)
+    saveMemeToStorage(gSavedMeme)
 }
 
-function loadImgFromStorage() {
+function loadCanvasFromStorage() {
     return loadFromStorage('imgDB')
 }
 
