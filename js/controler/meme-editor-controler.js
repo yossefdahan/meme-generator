@@ -12,28 +12,18 @@ function onInitEditor() {
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
     addListeners()
-    const center = { x: gElCanvas.width / 2, y: gElCanvas.height / 2 }
-    updateTextPos(center)
     window.addEventListener('resize', resizeCanvas())
     addKeyBoardListeners()
 }
 
 function renderMeme() {
-    const memeImg = getCurrSelectImg()
-    const currMeme = getMemesText()
-    if (!memeImg && !currMeme) {
-        gmemesFromStorage = gMemeFromStorage
-        drawImg(gImgFromStorage, gMemeFromStorage)
-        return
-    }
-    drawImg(memeImg, currMeme)
+    const currMeme = getMemes()
+    const selectedImgId = currMeme.selectedImgId
+    drawImg(selectedImgId, currMeme)
 }
 
 function renderText(currMeme) {
-    if (!currMeme) {
-        currMeme = gMemeFromStorage
-    }
-    document.querySelector('.txt-input').value = currMeme.lines[currMeme.selectedLineIdx].txt
+    document.querySelector('.txt-input').placeholder = currMeme.lines[currMeme.selectedLineIdx].txt
 
     currMeme.lines.forEach((line, idx) => {
         drawText(line)
@@ -43,14 +33,21 @@ function renderText(currMeme) {
     })
 }
 
-function drawImg(selectedImg, selectedLine) {
-
+function drawImg(selectedImgId, selectedLine) {
+    var loadedImgs = loadImageFromStorage()
+    var imgData = loadedImgs[selectedImgId - 1]
     const img = new Image()
-    img.src = selectedImg.url
+    img.src = loadedImgs.selectedImgId
+
+    if (imgData.url.startsWith('data:image/jpeg;base64,')) {
+        img.src = imgData.url
+    } else {
+        img.src = `img/${selectedImgId}.jpg`
+    }
+
     img.onload = () => {
         gElCanvas.height = (img.naturalHeight / img.naturalWidth) * gElCanvas.width
         gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
-
         renderText(selectedLine)
     }
 }
@@ -96,7 +93,7 @@ function drawRect(line) {
 }
 
 function onRemoveLine() {
-    var currMeme = getMemesText()
+    var currMeme = getMemes()
     if (!currMeme.lines.length) return
 
     removeLine()
@@ -106,16 +103,21 @@ function onRemoveLine() {
 function onAddLine() {
     const center = { x: gElCanvas.width / 2, y: gElCanvas.height / 2 }
     createNewLine(center)
-    onSwitchLine()
-    renderMeme()
     setFontColor('white')
     document.querySelector('.font-color').value = "#000000"
+    const newLine = getMemes()
+    document.querySelector('.txt-input').placeholder = newLine.lines.txt
+
+
+    onSwitchLine()
+    renderMeme()
+
 }
 
 function onSwitchLine() {
-    var memes = getMemesText()
+    var memes = getMemes()
     var currLine = memes.selectedLineIdx++
-    document.querySelector('.txt-input').value = memes.lines[currLine].txt
+    document.querySelector('.txt-input').placeholder = memes.lines[currLine].txt
     if (memes.selectedLineIdx >= memes.lines.length) {
 
         document.querySelector('.font-color').value = memes.lines[currLine].color
@@ -144,10 +146,10 @@ function onChangeColor(color) {
 }
 
 function onMoveToGallery() {
+
     const elMainStorage = document.querySelector('.main-storage')
     const elGalleryContainer = document.querySelector('.gallery-container')
     const elEditorContainer = document.querySelector('.editor-container')
-
     if (!elMainStorage.classList.contains('hidden') && elGalleryContainer.classList.contains('hidden')) {
         elMainStorage.classList.add('hidden')
         elGalleryContainer.classList.remove('hidden')
@@ -156,6 +158,9 @@ function onMoveToGallery() {
         elEditorContainer.classList.add('hidden')
         elGalleryContainer.classList.remove('hidden')
     }
+
+    resetMemes()
+
 }
 
 function onChangeSizeUp() {
@@ -211,10 +216,6 @@ function onSetAlignRight() {
     renderMeme()
 }
 
-function onClearCanvas() {
-    gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
-}
-
 function addListeners() {
     addMouseListeners()
     addTouchListeners()
@@ -267,11 +268,12 @@ function getEvPos(ev) {
 
 function onDown(ev) {
     gStartPos = getEvPos(ev)
+
     if (!selectLineOnClick(ev)) return
 }
 
 function onMove(ev) {
-    const memes = getMemesText()
+    const memes = getMemes()
     const isDrag = memes.lines[memes.selectedLineIdx].isDrag
     if (!isDrag) return
 
@@ -291,8 +293,7 @@ function onUp() {
 }
 
 function selectLineOnClick(ev) {
-    const currMeme = getMemesText()
-
+    const currMeme = getMemes()
     gStartPos = getEvPos(ev)
     const clickX = gStartPos.x
     const clickY = gStartPos.y
@@ -334,7 +335,7 @@ function toggleMenu() {
     }
 }
 
-function downloadImg(elLink) {
+function onDownloadImg(elLink) {
     const imgContent = gElCanvas.toDataURL('image/jpeg')
     elLink.href = imgContent
 }

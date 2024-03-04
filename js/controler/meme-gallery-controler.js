@@ -5,8 +5,8 @@ function onInitGallery() {
     renderGallery()
 }
 
-function renderGallery() {
-    const imgs = getMemesImgs()
+function renderGallery(canvas) {
+    const imgs = loadImageFromStorage() || getMemesImgs()
 
     var strHTMLs = imgs.map(img =>
         `
@@ -17,7 +17,9 @@ function renderGallery() {
 }
 
 function onImgSelect(elImg, imgUrl) {
-    setImg(elImg, imgUrl)
+    var imgId=+elImg.id
+   
+    setImg(elImg, imgUrl,imgId)
     const elMainStorage = document.querySelector('.main-storage')
     const elGalleryContainer = document.querySelector('.gallery-container')
     const elEditorContainer = document.querySelector('.editor-container')
@@ -26,8 +28,8 @@ function onImgSelect(elImg, imgUrl) {
     elMainStorage.classList.add('hidden')
     elEditorContainer.classList.remove('hidden')
 
-    onInitEditor()
     renderMeme()
+    onInitEditor()
     resizeCanvas()
 }
 

@@ -37,8 +37,7 @@
     }
 
     .file-input {
-        height: 23px;
-        font-size: 15px;
+        flex-basis: 15%;
     }
 
     .btns-canvas-container {
@@ -94,6 +93,10 @@
 
     .upload-btn {
         height: 50px;
+        align-self: center;
+    }
+
+    .font-choose {
         align-self: center;
     }
 }

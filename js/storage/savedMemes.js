@@ -1,9 +1,5 @@
 'use strict'
 
-
-var gImgFromStorage
-var gMemeFromStorage
-
 function onMoveToStorage() {
     const savedCanvas = loadCanvasFromStorage()
     const elMainStorage = document.querySelector('.main-storage')
@@ -19,32 +15,36 @@ function onMoveToStorage() {
         elMainStorage.classList.remove('hidden')
     }
     renderCanvasStorage(savedCanvas)
+
 }
 
 function renderCanvasStorage(savedCanvas) {
-    var strHTMLs = savedCanvas.map(img => {
-        return `<img class="img-${img.id} ${img.id}" id="${img.id}"src="${img.canvasURL}" alt="${img.id}" onclick="onSelectFromStorage(this,'${img.canvasURL}')">`
+
+    var strHTMLs = savedCanvas.map(meme => {
+        return `<img class="img-${meme.id} ${meme.id}" id="${meme.id}" src="${meme.canvasURL}" alt="${meme.id}" onclick="onSelectFromStorage('${meme.id}')">`
     })
+
     const elStorageContainer = document.querySelector('.storage-container')
     elStorageContainer.innerHTML = strHTMLs.join('')
 }
 
-function onSelectFromStorage(elImg, imgUrl) {
+function onSelectFromStorage(id) {
     const elMainStorage = document.querySelector('.main-storage')
     const elEditorContainer = document.querySelector('.editor-container')
     elEditorContainer.classList.remove('hidden')
     elMainStorage.classList.add('hidden')
 
-    const savedMemes = loadMemeFromStorage()
-    const selectedImg = { url: imgUrl }
-    var selectedLine = savedMemes[0].gMeme.lines
+    clearCanvas()
+    gElCanvas = document.querySelector('canvas')
+    gCtx = gElCanvas.getContext('2d')
 
-    SavedMeme(selectedImg, selectedLine)
+    getById(id)
     onInitEditor()
-    resizeCanvas()
+    renderMeme()
 }
 
-function SavedMeme(selectedImg, selectedLine) {
-    gImgFromStorage = selectedImg
-    gMemeFromStorage = selectedLine
+function clearCanvas() {
+    gElCanvas = document.querySelector('canvas')
+    gCtx = gElCanvas.getContext('2d')
+    gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
 }

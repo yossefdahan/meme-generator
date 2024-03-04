@@ -14,7 +14,7 @@
     height: 30px;
     font-size: 1.3em;
     align-self: center;
-    flex-basis: 20%;
+    flex-basis: 7%;
 
     background-color: var(--clrPrimary-2);
 }

@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/51428d49b5.js" crossorigin="anonymous"></script>
     <title>Meme-Generator</title>
     <link rel="stylesheet" href="css/main.css">
 </head>
@@ -29,8 +30,9 @@
 
     <section class="gallery-container">
         <section class="gallery-extras-btns flex">
-            <input type="file" class="local-upload-btn file-input btn" name="image" onchange="onImgInput(event)"
-                accept="image/*" />
+            <label for="upload-file" class="local-upload-btn upload-file file-input btn">➕</label>
+            <input type="file" class="local-upload-btn upload-file file-input btn hidden" name="image" id="upload-file"
+                onchange="onImgInput(event)" accept="image/*" />
             <button class="random-img radius-15" onclick="getRandomImg()">Im Flexible</button>
         </section>
         <section class="imgs-container"></section>
@@ -54,14 +56,20 @@
                         width=40 alt=""></button>
                 <button class="save-img" onclick="onSaveMemeAndImg()">Save</button>
                 <select class="font-choose text-align-center" onchange="onSetFontFamily(this.value)">
+                    <option value="Impact">Impact</option>
                     <option value="Arial">Arial</option>
                     <option value="Times New Roman">Times New Roman</option>
                     <option value="Verdana">Verdana</option>
                 </select>
                 <button class="font-up grid-row-3" onclick="onChangeSizeUp()">A+</button>
                 <button class="font-down grid-row-3" onclick="onChangeSizeDown()">A-</button>
-                <input class="font-color radius-15 height-4" type="color" onchange="onChangeColor(this.value)"
+
+
+                <label for="color" class="font-color radius-15">🎨</label>
+                <input class="font-color radius-15 height-4 pos" type="color" oninput="onChangeColor(this.value)"
                     id="color">
+
+
                 <button class="font-left height-4 grid-row-3" onclick="onSetAlignLeft()"><img src="img/left1.png"
                         width=40 alt=""></button>
 
@@ -69,9 +77,15 @@
                         alt=""></button>
                 <button class="add-line" onclick="onAddLine()">➕</button>
                 <button class="switch-line" onclick="onSwitchLine()">S</button>
-                <div class="download-container"><a href="#" class="download-btn radius-15" onclick="downloadImg(this)"
-                        download="my-img.jpg">Download</a></div>
-                <button class="upload-btn" onclick="onUploadImg()"> Upload</button>
+
+
+
+                <div class="download-container"><a href="#" id="download-label" class="download-btn radius-15"
+                        onclick="onDownloadImg(this)" download="my-img.jpg">Download</a></div>
+
+
+                <button class="upload-btn" onclick="onUploadImg()">Facebook</button>
+
                 <button class="down-arrow font-size-2 grid-row-5" onclick="onSetLinePosDown()">⬇</button>
                 <button class="up-arrow font-size-2 grid-row-5" onclick="onSetLinePosUp()">⬆</button>
                 <button class="left-arrow font-size-2 grid-row-5" onclick="onSetLinePosLeft()">⬅</button>

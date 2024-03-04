@@ -130,33 +130,34 @@ function getMemesImgs() {
     return gImgs
 }
 
-function getMemesText() {
-    if (gCurrSelectedImg && gCurrSelectedImg.id === gMeme.selectedImgId) {
-        return gMeme
-    }
+function getMemes() {
+    return gMeme
 }
 
 function getCurrSelectImg() {
     return gCurrSelectedImg
 }
 
+function getStoredImgs() {
+    return loadImageFromStorage()
+}
+
 function setLineTxt(text) {
     gMeme.lines[gMeme.selectedLineIdx].txt = text
 }
 
-function setImg(elImg, imgUrl) {
-    gMeme.selectedImgId = +elImg.id
-    var selectedImg = gImgs.find(img => img.url === imgUrl)
-    gCurrSelectedImg = selectedImg
+function setImg(elImg, imgUrl, imgId) {
+    gMeme.selectedImgId = imgId
+    // var selectedImg = gImgs.find(img => img.url === imgUrl)
+    // gCurrSelectedImg = selectedImg
 
-    gMeme.lines[gMeme.selectedLineIdx].txt = gMeme.lines[gMeme.selectedLineIdx].txt
-    document.querySelector('.txt-input').value = ''
+    // gMeme.lines[gMeme.selectedLineIdx].txt
+    // document.querySelector('.txt-input').placeholder = gMeme.lines[gMeme.selectedLineIdx].txt
 }
 
 function createNewLine(center) {
     const { x, y } = center
-    var newLine =
-    {
+    var newLine = {
         txt: 'more....',
         size: 20,
         color: 'white',
@@ -242,26 +243,40 @@ function saveCanvasToStorage(img) {
     saveToStorage(IMG_DB, img)
 }
 
-function saveMemeToStorage(meme) {
-    saveToStorage(MEME_DB, meme)
+function saveMemeToStorage(memes) {
+
+    saveToStorage(MEME_DB, memes)
+}
+
+function getById(id) {
+    const memesFromStorage = loadFromStorage('memeDB')
+
+    const wantedMemeIdx = memesFromStorage.findIndex(m => m.id === id)
+
+
+    gMeme = memesFromStorage[wantedMemeIdx].gMeme
+    console.log(memesFromStorage[wantedMemeIdx].gMeme);
+    if (wantedMemeIdx !== -1) return gMeme
+    else console.error('meme was not found in storage')
 }
 
 function SaveCanvas(id, canvasURL) {
-    gSavedMeme.push({ id, gMeme })
-    gSavedImg.push({ id, canvasURL })
-    saveCanvasToStorage(gSavedImg)
-    saveMemeToStorage(gSavedMeme)
+    const savedMemes = loadFromStorage('memeDB') || []
+    savedMemes.push({ id, canvasURL, gMeme })
+
+    saveMemeToStorage(savedMemes)
 }
 
 function loadCanvasFromStorage() {
-    return loadFromStorage('imgDB')
-}
-
-function loadMemeFromStorage() {
     return loadFromStorage('memeDB')
 }
 
+function loadImageFromStorage() {
+    return loadFromStorage('imgDB')
+}
+
 function AddToImgs(img) {
+
     var count = gImgs.length + 1
 
     const newImg = {
@@ -271,4 +286,32 @@ function AddToImgs(img) {
     }
     gImgs.push(newImg)
     renderGallery()
+
+    saveToStorage(IMG_DB, gImgs)
 }
+
+function resetMemes() {
+    gMeme = {
+        selectedImgId: 0,
+        selectedLineIdx: 0,
+        lines: [{
+            txt: 'I sometimes eat Falafel',
+            size: 20,
+            color: '#ffffff',
+            stroke: 'black',
+            isDrag: false,
+            font: 'Impact',
+            align: 'center',
+            pos: {
+                x: 250,
+                y: 250,
+            },
+            wordSize: {
+                width: 200,
+                height: 20,
+            }
+        }]
+    }
+
+}
+
