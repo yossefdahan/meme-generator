@@ -5,7 +5,7 @@ function onInitGallery() {
     renderGallery()
 }
 
-function renderGallery(canvas) {
+function renderGallery() {
     const imgs = loadImageFromStorage() || getMemesImgs()
 
     var strHTMLs = imgs.map(img =>
@@ -17,9 +17,9 @@ function renderGallery(canvas) {
 }
 
 function onImgSelect(elImg, imgUrl) {
-    var imgId=+elImg.id
-   
-    setImg(elImg, imgUrl,imgId)
+    var imgId = +elImg.id
+
+    setImg(elImg, imgUrl, imgId)
     const elMainStorage = document.querySelector('.main-storage')
     const elGalleryContainer = document.querySelector('.gallery-container')
     const elEditorContainer = document.querySelector('.editor-container')
