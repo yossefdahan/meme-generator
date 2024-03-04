@@ -35,12 +35,12 @@ function renderText(currMeme) {
 
 function drawImg(selectedImgId, selectedLine) {
     var loadedImgs = loadImageFromStorage()
-    var imgData = loadedImgs
+    var imgData = loadedImgs[selectedImgId - 1]
     const img = new Image()
     img.src = loadedImgs.selectedImgId
 
-    if (imgData[selectedImgId - 1].url.startsWith('data:image/jpeg;base64,')) {
-        img.src = imgData[selectedImgId - 1].url
+    if (imgData.url.startsWith('data:image/jpeg;base64,')) {
+        img.src = imgData.url
     } else {
         img.src = `img/${selectedImgId}.jpg`
     }
