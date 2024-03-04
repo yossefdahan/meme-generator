@@ -34,16 +34,22 @@ function renderText(currMeme) {
 }
 
 function drawImg(selectedImgId, selectedLine) {
-    var loadedImgs = loadImageFromStorage()
-    var imgData = loadedImgs[selectedImgId - 1]
+    // console.log('hi1');
+    // var loadedImgs = loadImageFromStorage()
+    // console.log('hi2');
+    // console.log(selectedImgId);
+    // let imgData = loadedImgs[selectedImgId].url
+    // console.log(imgData);
     const img = new Image()
-    img.src = loadedImgs.selectedImgId
+    // img.src = loadedImgs.selectedImgId
 
-    if (imgData.url.startsWith('data:image/jpeg;base64,')) {
-        img.src = imgData.url
-    } else {
-        img.src = `img/${selectedImgId}.jpg`
-    }
+    // if (imgData.url.startsWith('data:image/jpeg;base64,')) {
+    // console.log('hi4');
+    // img.src = imgData.url
+    // } else {
+    // console.log('hi5');
+    img.src = `img/${selectedImgId}.jpg`
+    // }
 
     img.onload = () => {
         gElCanvas.height = (img.naturalHeight / img.naturalWidth) * gElCanvas.width
